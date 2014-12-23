@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+	<module id_module="1" code="soft661" crn="34551" semester="1" name="RTS"/>
+	<module id_module="2" code="soft662" crn="34552" semester="2" name="SWPM"/>
+	<module id_module="3" code="soft663" crn="34553" semester="3" name="SE"/>
+	<module id_module="4" code="soft664" crn="34554" semester="4" name="GG"/>
+	<module id_module="5" code="soft665" crn="34555" semester="2" name="FF"/>
+	<module id_module="6" code="SOFT8020" crn="32389" semester="3" name="Stuff And Things"/>
+	<program  id_program="1" program_name="DCOM4" program_code="DCOM4"/>
+	<lecturer id_lecturer="1" firstName="Donna" lastName="OShea" email="donna.oshea@cit.ie"
+		phoneNumber="0123456789" roomNumber="B180A"/>
+	<lecturer id_lecturer="2" firstName="Ted" lastName="Scully" email="ted.scully@cit.ie"
+		phoneNumber="0123456789" roomNumber="B180A"/>
+	<lecturer_teaches_module idLecturer="2" idModule="1" />
+	<lecturer_teaches_module idLecturer="2" idModule="2" />
+	
+	<student id_student="1" firstName="Simon" lastName="Casey" email="simon.casey@mycit.ie"
+		studentNumber="R00058441" phoneNumber="098765433" addressLine1="Tramore" addressLine2="Waterford"/>
+	<student id_student="2" firstName="Mary" lastName="Casey" email="mary.casey@mycit.ie"
+		studentNumber="R00058442" phoneNumber="5436356432" addressLine1="Bishopstown" addressLine2="Cork"/>
+	
+		
+</dataset>
