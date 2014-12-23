@@ -39,7 +39,7 @@ public class LecturerController {
 		}
 	
 	@RequestMapping(value="/list/{firstName}/{lastName}", method=RequestMethod.GET)
-	 public String listSongwriterByFistnameLastname(@PathVariable String firstName, @PathVariable String lastName,  ModelMap model){
+	 public String listLecturerByFistnameLastname(@PathVariable String firstName, @PathVariable String lastName,  ModelMap model){
 		LecturerImpl lecturer=lecturerDAO.getLecturer(firstName, lastName);
 		List<LecturerImpl> listLecturers = new ArrayList<LecturerImpl>();
 		listLecturers.add(lecturer);
@@ -49,7 +49,16 @@ public class LecturerController {
 	}
 	
 	@RequestMapping(value="/list/{id}", method=RequestMethod.GET)
-	public String listSongwriterByID(@PathVariable int id, ModelMap model){
+	public String listLecturerByID(@PathVariable int id, ModelMap model){
+		List<LecturerImpl> lecturers=new ArrayList<LecturerImpl>();
+		LecturerImpl lecturer=lecturerDAO.getLecturer(id);
+		lecturers.add(lecturer);
+		model.addAttribute("lecturers", lecturers);
+	    return "displayLecturers";
+	}
+	
+	@RequestMapping(value="/modify/{id}", method=RequestMethod.GET)
+	public String modifyLecturerByID(@PathVariable int id, ModelMap model){
 		List<LecturerImpl> lecturers=new ArrayList<LecturerImpl>();
 		LecturerImpl lecturer=lecturerDAO.getLecturer(id);
 		lecturers.add(lecturer);
