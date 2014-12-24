@@ -12,14 +12,39 @@
         <put-attribute name="footer" value="/WEB-INF/jsp/templating/footer.jsp" />  
     </definition>  
     
-     <definition extends="base.definition" name="home">  
+    <definition extends="base.definition" name="home">  
         <put-attribute name="title" value="Home"></put-attribute>  
         <put-attribute name="body" value="/WEB-INF/jsp/home.jsp"></put-attribute>  
     </definition>
     
     <definition extends="base.definition" name="displayLecturers">  
-       <put-attribute name="title" value="Lecturers List"></put-attribute>  
-       <put-attribute name="body" value="/WEB-INF/jsp/lecturer/listAll.jsp"></put-attribute>  
+       	<put-attribute name="title" value="Lecturers List"></put-attribute>  
+     	<put-attribute name="body" value="/WEB-INF/jsp/lecturer/listall.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="newLecturer">  
+		<put-attribute name="title" value="Add New lecturer"></put-attribute>  
+       	<put-attribute name="body" value="/WEB-INF/jsp/lecturer/newLecturer.jsp"></put-attribute>  
+	</definition>
+
+	<definition extends="base.definition" name="displayLecturer">  
+	       <put-attribute name="title" value="Display lecturer"></put-attribute>  
+	       <put-attribute name="body" value="/WEB-INF/jsp/lecturer/display.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="modifyLecturer">  
+        <put-attribute name="title" value="Modify Lecturer"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/lecturer/modify.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="modifyLecturerForm">  
+	        <put-attribute name="title" value="Modify Lecturer"></put-attribute>  
+	        <put-attribute name="body" value="/WEB-INF/jsp/lecturer/modifyForm.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="delete">  
+        <put-attribute name="title" value="Delete Lecturer"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/lecturer/delete.jsp"></put-attribute>  
 	</definition>
       
 </tiles-definitions>

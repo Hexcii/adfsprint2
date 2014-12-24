@@ -52,6 +52,13 @@ public class Lecturer extends Person {
 		taughtModules = new ArrayList<Module>();
 	}
 	
+	/**
+	 * Constructor of the class
+	 */
+	public Lecturer(){
+		// Avoid a null pointer exception in case of using addModule before setting it.
+		taughtModules = new ArrayList<Module>();
+	}
 
 	/**
 	 * @return the managedProgram

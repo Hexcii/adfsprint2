@@ -7,6 +7,7 @@ package com.citonline.db.interfaces.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,11 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
+import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
+import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -425,6 +430,7 @@ public class LecturerJdbcDaoSupport extends JdbcDaoSupport implements LecturerDA
 	 * @see com.citonline.db.interfaces.LecturerDAO#getManagedProgram(java.lang.String, java.lang.String)
 	 */
 	@Override
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
 	public Program getManagedProgram(String firstName, String lastName) {
 		Program prog =null;
 		
@@ -445,6 +451,7 @@ public class LecturerJdbcDaoSupport extends JdbcDaoSupport implements LecturerDA
 	 * @see com.citonline.db.interfaces.LecturerDAO#getManagedProgram(java.lang.Integer)
 	 */
 	@Override
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
 	public Program getManagedProgram(Integer id_lecturer) {
 		Program prog = null;
 		
@@ -460,6 +467,105 @@ public class LecturerJdbcDaoSupport extends JdbcDaoSupport implements LecturerDA
 		catch(Exception e){}
 		
 		return prog;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.citonline.db.interfaces.LecturerDAO#updateLecturerPhoneNumber(java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
+	@Transactional
+	public void updateLecturerPhoneNumber(String firstName, String lastName,
+			String phoneNumber) {
+		String SQL = "UPDATE lecturer SET phoneNumber=? where firstName = ? and lastName = ?";
+		getJdbcTemplate().update(SQL, new Object[]{phoneNumber, firstName, lastName});
+		
+		System.out.println("update lecturer " + firstName + " " + lastName +
+				"'s roomNumber. Set to: " + phoneNumber);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.citonline.db.interfaces.LecturerDAO#updateLecturerPhoneNumber(java.lang.Integer, java.lang.String)
+	 */
+	@Override
+	@Transactional
+	public void updateLecturerPhoneNumber(Integer id_lecturer,
+			String phoneNumber) {
+		String SQL = "UPDATE lecturer SET phoneNumber=? where id_lecturer = ?";
+		getJdbcTemplate().update(SQL, new Object[]{phoneNumber, id_lecturer});
+		
+		System.out.println("update lecturer " + id_lecturer + "'s roomNumber. Set to: " + phoneNumber);
+		}
+
+	/* (non-Javadoc)
+	 * @see com.citonline.db.interfaces.LecturerDAO#createLecturerGetID(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
+	@Transactional
+	public int createLecturerGetID(String firstName, String lastName,
+			String email, String phoneNumber, String roomNumber) {
+
+		String SQL = "INSERT INTO lecturer (firstName, lastName, email, phoneNumber, roomNumber)"
+				+ "VALUES(?, ?, ?, ?, ?)";
+		Object[] params=new Object[]{ firstName, lastName, email, phoneNumber, roomNumber};
+		PreparedStatementCreatorFactory psc=new PreparedStatementCreatorFactory(SQL);
+		psc.addParameter(new SqlParameter("firstName", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("lastName", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("email", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("phoneNumber", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("roomNumber", Types.VARCHAR));
+
+		KeyHolder holder = new GeneratedKeyHolder();
+		int added = getJdbcTemplate().update(psc.newPreparedStatementCreator(params), holder);
+		int key=-1; 
+		
+		if(added == 1){
+			key = holder.getKey().intValue();
+			System.out.println("Created lecturer Name = " + firstName + " " + lastName + " with key " + key +
+				"\nemail = " + email + ", phoneNumber =" + phoneNumber + ", roomNumber = " + roomNumber);
+		}
+		else{
+			System.err.println("Error creating lecturer Name = " + firstName + " " + lastName +
+				"\nemail = " + email + ", phoneNumber =" + phoneNumber + ", roomNumber = " + roomNumber);
+		}
+		return key;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.citonline.db.interfaces.LecturerDAO#createLecturerGetID(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.Integer)
+	 */
+	@Override
+	@Transactional
+	public int createLecturerGetID(String firstName, String lastName,
+			String email, String phoneNumber, String roomNumber,
+			Integer idManagedProgram) {
+		String SQL = "INSERT INTO lecturer (firstName, lastName, email, phoneNumber, roomNumber, idManagedProgram)"
+				+ "VALUES(?, ?, ?, ?, ?, ?)";
+		
+		Object[] params=new Object[]{ firstName, lastName, email, phoneNumber, roomNumber, idManagedProgram};
+		PreparedStatementCreatorFactory psc=new PreparedStatementCreatorFactory(SQL);
+		psc.addParameter(new SqlParameter("firstName", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("lastName", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("email", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("phoneNumber", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("roomNumber", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("idManagedProgram", Types.INTEGER));
+
+		KeyHolder holder = new GeneratedKeyHolder();
+		int added = getJdbcTemplate().update(psc.newPreparedStatementCreator(params), holder);
+		int key=-1; 
+		
+		if(added == 1){
+			key = holder.getKey().intValue();
+			System.out.println("Created lecturer Name = " + firstName + " " + lastName + " with key " + key +
+				"\nemail = " + email + ", phoneNumber =" + phoneNumber +
+				", roomNumber = " + roomNumber + ", idManagedProgram = " + idManagedProgram);
+		}
+		else{
+			System.err.println("Error creating lecturer Name = " + firstName + " " + lastName +
+				"\nemail = " + email + ", phoneNumber =" + phoneNumber +
+				", roomNumber = " + roomNumber + ", idManagedProgram = " + idManagedProgram);
+		}
+		return key;
 	}
 
 }

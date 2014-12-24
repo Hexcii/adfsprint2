@@ -14,6 +14,9 @@ public abstract class Person {
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 	}
+	
+	public Person(){
+	}
 
 	public String getFirstName() {
 		return firstName;

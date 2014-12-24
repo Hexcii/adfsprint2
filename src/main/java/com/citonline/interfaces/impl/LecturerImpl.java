@@ -47,6 +47,12 @@ public class LecturerImpl extends Lecturer implements LecturerInt {
 		super(id, firstName, lastName, email, phoneNumber, roomNumber, idManagedProgram);
 	}
 	
+	/**
+	 * Constructor of the class
+	 */
+	public LecturerImpl(){
+	}
+	
 	/* (non-Javadoc)
 	 * @see com.citonline.interfaces.LecturerInt#teach(com.citonline.domain.Module)
 	 */

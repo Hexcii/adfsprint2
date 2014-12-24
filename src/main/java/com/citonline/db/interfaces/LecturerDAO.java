@@ -250,4 +250,51 @@ public interface LecturerDAO {
 	 */
 	public Program getManagedProgram(final Integer id_lecturer);
 	
+	/**
+	 *  Update the Lecturer's phoneNumber.
+	 *  
+	 * @param firstName
+	 * @param lastName
+	 * @param phoneNumber
+	 */
+	public void updateLecturerPhoneNumber(String firstName, String lastName, String phoneNumber);
+	/**
+	 *  Update the Lecturer's phoneNumber.
+	 *  
+	 * @param id_lecturer
+	 * @param phoneNumber
+	 */
+	public void updateLecturerPhoneNumber(Integer id_lecturer, String phoneNumber);
+	
+	/**
+	 *  This is the method to be used to create
+	 * a record in the lecturer table.
+	 * 
+	 * @param firstName
+	 * @param lastName
+	 * @param email
+	 * @param phoneNumber
+	 * @param roomNumber
+	 * 
+	 * @return the id of the created Lecturer
+	 */
+	public int createLecturerGetID(String firstName, String lastName, String email,
+			String phoneNumber, String roomNumber);
+	
+	/**
+	 *  This is the method to be used to create
+	 * a record in the lecturer table.
+	 * 
+	 * @param firstName
+	 * @param lastName
+	 * @param email
+	 * @param roomNumber
+	 * @param phoneNumber
+	 * @param idManagedProgram
+	 * 
+	 * @return the id of the created Lecturer
+	 */
+	public int createLecturerGetID(String firstName, String lastName, String email,
+			String phoneNumber, String roomNumber, Integer idManagedProgram);
+	
 }
