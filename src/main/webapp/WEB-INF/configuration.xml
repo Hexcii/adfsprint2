@@ -27,11 +27,47 @@
 	</bean>
 	
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"></property>		
+		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 		
 	<bean id="txTemplate" class="org.springframework.transaction.support.TransactionTemplate">
 		<property name="transactionManager" ref="transactionManager"></property>
-	</bean> 
+	</bean>
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com"/>
+		<property name="port" value="25"/>
+		<property name="username" value="donnaoseaghdha@gmail.com"/>
+		<property name="password" value="Pa55w0rd01"/>
+		
+		<property name="javaMailProperties">
+			<props>
+				
+				<!-- Use SMTP transport protocol -->
+				<prop key="mail.transport.protocol">smtp</prop>
+				<!-- Use SMTP-AUTH to authenticate to SMTP server -->
+				<prop key="mail.smtp.auth">true</prop>
+				<!-- Use TLS to encrypt communication with SMTP server -->
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>	
+	
+	<bean id="customMailMessage"
+		class="org.springframework.mail.SimpleMailMessage">
+		
+		<property name="from" value="donnaoseaghdha@gmail.com" />
+		<property name="to" value="donna.oshea@cit.ie" />
+		<property name="subject" value="Testing Subject" />
+		<property name="text">
+			<value>
+				<![CDATA[
+				Dear %s,
+				Mail Content : %s
+			]]>			
+			</value>
+		</property>
+    </bean>
 	
 </beans>
