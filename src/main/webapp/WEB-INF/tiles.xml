@@ -56,4 +56,13 @@
         <put-attribute name="title" value="Add New Deferral"></put-attribute>  
         <put-attribute name="body" value="/WEB-INF/jsp/deferral/addNewDeferral.jsp"></put-attribute>  
 	</definition>
+	
+	<definition extends="base.definition" name="deleteDeferral">  
+        <put-attribute name="title" value="Delete Deferral"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/deferral/deleteDeferral.jsp"></put-attribute>  
+	</definition>
+	<definition extends="base.definition" name="modifyDeferral">  
+        <put-attribute name="title" value="Deferral Status"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/deferral/modifyDeferral.jsp"></put-attribute>  
+	</definition>
 </tiles-definitions>
