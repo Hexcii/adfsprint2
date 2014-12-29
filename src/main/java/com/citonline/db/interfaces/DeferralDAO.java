@@ -86,6 +86,14 @@ public interface DeferralDAO
 	 * @return array list of deferal
 	 */
 	public Deferral getDeferralStudentName(String firstName, String lastName);
+	
+	/**
+	 * single deferal based on student name
+	 * @param firstName
+	 * @param lastName
+	 * @return array list of deferal
+	 */
+	public Deferral getDeferralById(int id);
 	/**
 	 * returns single defferal based on student number
 	 * @param studentNumber
@@ -111,5 +119,11 @@ public interface DeferralDAO
 	 * @return arraylist defferals
 	 */
 	public ArrayList<Deferral>getDefferalsStatusName(String status);
+	/**
+	 * gett all deferrals except deleted ones
+	 * @param status
+	 * @return arraylist of defferals
+	 */
+	public ArrayList<Deferral>getAllDefferals();
 	
 }

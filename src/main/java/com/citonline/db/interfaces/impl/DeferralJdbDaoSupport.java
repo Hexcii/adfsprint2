@@ -239,5 +239,36 @@ public class DeferralJdbDaoSupport extends JdbcDaoSupport implements
 				.query(SQL, new Object[] { status }, new DeferralMapper());
 		return deferrals;
 	}
-
+	/**
+	 * Function to list all deferrals excepted deleted ones
+	 * @author peter halligan
+	 * @date 27/12/14
+	 */
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	public ArrayList<Deferral>getAllDefferals()
+	{
+		int status =3;
+		String SQL = "select * from deferral where id_deferral_status !=? )";
+		@SuppressWarnings("unchecked")
+		ArrayList<Deferral> deferrals = (ArrayList<Deferral>) getJdbcTemplate()
+				.query(SQL, new Object[] { status }, new DeferralMapper());
+		return deferrals;
+	}
+	/**
+	 * peter halligan
+	 * 27/12/14
+	 * get by id
+	 */
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+	public Deferral getDeferralById(int id) {
+		String SQL = "select * from deferral where id = ?";
+		@SuppressWarnings("unchecked")
+		Deferral deferral = (Deferral) getJdbcTemplate()
+				.query(SQL, new Object[] { id},
+						new DeferralMapper());
+		return deferral;
+	}
+	
 }

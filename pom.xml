@@ -122,12 +122,14 @@ This is the central artifact for Spring's Dependency Injection Container and is 
       <version>1.1.0</version>
       <scope>test</scope>
 </dependency>
+<!-- commented out as per donnas notes
 <dependency>
 	<groupId>org.slf4j</groupId>
 	<artifactId>slf4j-log4j12</artifactId>
 	<version>1.5.2</version>
 	<scope>test</scope>
 </dependency>
+-->
 <dependency>
 	<groupId>org.hsqldb</groupId>
 	<artifactId>hsqldb</artifactId>

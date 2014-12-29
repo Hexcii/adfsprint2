@@ -54,6 +54,7 @@ public class Deferral
 		this.id_deferral_status =id_deferral_status;
 		deferredModules = new ArrayList<Module>();
 	}
+	public Deferral() {}
 	public int getStatus() {
 		return id_deferral_status;
 	}
