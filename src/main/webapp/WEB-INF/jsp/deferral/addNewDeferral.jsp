@@ -1,16 +1,34 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Deferral</title>
-</head>
-<body>
-<div id="messageTest">
-		<h3>This is my deferral add new page</h3>
-		<h5>${message}</h5>
-	</div>
-</body>
-</html>
+
+<form:form method="POST" enctype="multipart/form-data" data-ajax="false" action="addNewDeferral" modelAttribute="deferral">
+
+<form:errors path="*" cssClass="errorblock" element="div" />
+
+<%-- <form:errors path="firstname" class="notification error" style="display:block"></form:errors>
+<form:errors path="lastname" class="notification error" style="display:block"></form:errors>
+<form:errors path="age" class="notification error" style="display:block"></form:errors> --%>
+
+ <div class="ui-field-contain">
+ <form:label path="id_student">Student id</form:label>
+ <form:input path="id_student" placeholder="id_student" value=""/>
+ <form:errors path="id_student" cssClass="error" class="notification error" style="display:block"></form:errors>
+ </div>
+ 
+ <div class="ui-field-contain">
+ <form:label path="id_program">program id</form:label>
+ <form:input path="id_program" placeholder="id_program"  value=""/>
+ <form:errors path="id_program" cssClass="error" class="notification error" style="display:block"></form:errors>
+ </div>
+ 
+ 
+ <div data-role-="fieldcontain">
+ <fieldset data-role="controlgroup">
+ <form:checkbox path="programDeferred"  label="Deferring whole program"/>
+ </fieldset>
+ <form:errors path="programDeferred" cssClass="error" class="notification error" style="display:block"></form:errors>
+ </div>
+ 
+  -->
+ 
+ <input data-theme="b" type="submit" data-icon="check" value="Save" />
+  </form:form> 

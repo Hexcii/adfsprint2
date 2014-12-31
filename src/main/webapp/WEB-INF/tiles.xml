@@ -65,4 +65,9 @@
         <put-attribute name="title" value="Deferral Status"></put-attribute>  
         <put-attribute name="body" value="/WEB-INF/jsp/deferral/modifyDeferral.jsp"></put-attribute>  
 	</definition>
+	
+	<definition extends="base.definition" name="displayDeferral">  
+        <put-attribute name="title" value="Display Deferral"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/deferral/displayDeferral.jsp"></put-attribute>  
+	</definition>
 </tiles-definitions>
