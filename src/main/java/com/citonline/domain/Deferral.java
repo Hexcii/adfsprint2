@@ -55,12 +55,12 @@ public class Deferral
 		deferredModules = new ArrayList<Module>();
 	}
 	public Deferral() {}
-	public int getStatus() {
+	public int getId_deferral_status() {
 		return id_deferral_status;
 	}
 
-	public void setStatus(DeferralStatus status) {
-		this.id_deferral_status = status.getStatus();
+	public void setId_deferral_status(int status) {
+		this.id_deferral_status = status;
 	}
 	public boolean getProgramDeferred() {
 		return programDeferred;
