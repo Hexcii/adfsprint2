@@ -30,7 +30,7 @@ public class LecturerController {
 	@Autowired
 	LecturerDAO lecturerDAO;
 	
-	@RequestMapping(value="/listall", method = RequestMethod.GET)
+	@RequestMapping(value={"/listall", "/listAll"}, method = RequestMethod.GET)
 	public String listAll(ModelMap model) {
 			
 			List<LecturerImpl> listLecturers=lecturerDAO.listLecturers();
@@ -135,7 +135,7 @@ public class LecturerController {
 		return "modifyLecturer";
 	}
 	
-	@RequestMapping(value = "/modify/id/{id}", method = RequestMethod.GET)
+	@RequestMapping(value ="/modify/id/{id}", method = RequestMethod.GET)
 	public String modifyLecturerByID(@PathVariable int id, ModelMap model) {
 		LecturerImpl lecturerModify=lecturerDAO.getLecturer(id);
 		model.addAttribute("message", "Lecturer with id "+ id +" can now be modified");
@@ -143,7 +143,7 @@ public class LecturerController {
 		return "modifyLecturerForm";
 	}
 	
-	@RequestMapping(value = "/modify/firstName/{firstName}/lastName/{lastName}", method = RequestMethod.GET)
+	@RequestMapping(value ="/modify/firstName/{firstName}/lastName/{lastName}", method = RequestMethod.GET)
 	public String modifyLecturerByFirstNameLastName(@PathVariable String firstName, @PathVariable String lastName,
 			ModelMap model) {
 		LecturerImpl lecturerModify=lecturerDAO.getLecturer(firstName, lastName);
@@ -164,7 +164,7 @@ public class LecturerController {
 		return "displayLecturer";
 	}
 	
-	@RequestMapping(value = "/modify/firstName/{firstName}/lastName/{lastName}/idManagedProgram/{idManagedProgram}",
+	@RequestMapping(value ="/modify/firstName/{firstName}/lastName/{lastName}/idManagedProgram/{idManagedProgram}",
 			method = RequestMethod.GET)
 	public String modifyLecturerIdManagedProgram(@PathVariable String firstName, @PathVariable String lastName,
 			@PathVariable int idManagedProgram, ModelMap model) {
@@ -223,7 +223,7 @@ public class LecturerController {
 		return "displayLecturer";
 	}
 	
-	@RequestMapping(value = "/delete/id/{id}", method = RequestMethod.GET) 
+	@RequestMapping(value ="/delete/id/{id}", method = RequestMethod.GET) 
 	public String deleteSongwriterbyId(@PathVariable int id, ModelMap model) { 
 		LecturerImpl lecturerDelete=lecturerDAO.getLecturer(id);
 		lecturerDAO.deleteLecturer(id);

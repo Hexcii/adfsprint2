@@ -131,7 +131,7 @@ public class LecturerJdbcDaoSupport extends JdbcDaoSupport implements LecturerDA
 						new Object[]{id_lecturer}, new LecturerMapper());
 		
 		ArrayList<Module> taughtModules = getTaughtModules(id_lecturer);
-		lecturer.setModulesTaught(taughtModules);
+		lecturer.setTaughtModules(taughtModules);
 		
 		Program prog = getManagedProgram(id_lecturer);
 		lecturer.setManagedProgram(prog);
@@ -148,7 +148,7 @@ public class LecturerJdbcDaoSupport extends JdbcDaoSupport implements LecturerDA
 						new Object[]{firstName, lastName}, new LecturerMapper());
 		
 		ArrayList<Module> taughtModules = getTaughtModules(firstName, lastName);
-		lecturer.setModulesTaught(taughtModules);
+		lecturer.setTaughtModules(taughtModules);
 		
 		Program prog = getManagedProgram(firstName, lastName);
 		lecturer.setManagedProgram(prog);

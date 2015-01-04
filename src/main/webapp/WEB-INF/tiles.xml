@@ -19,7 +19,7 @@
     
     <definition extends="base.definition" name="displayLecturers">  
        	<put-attribute name="title" value="Lecturers List"></put-attribute>  
-     	<put-attribute name="body" value="/WEB-INF/jsp/lecturer/listall.jsp"></put-attribute>  
+     	<put-attribute name="body" value="/WEB-INF/jsp/lecturer/listAll.jsp"></put-attribute>  
 	</definition>
 	
 	<definition extends="base.definition" name="newLecturer">  

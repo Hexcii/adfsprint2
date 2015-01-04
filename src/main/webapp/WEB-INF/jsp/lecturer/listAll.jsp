@@ -6,8 +6,8 @@
     <tr>
 	    <th data-priority="9">Image </th>
 	    <th data-priority="3">Lecturer ID</th>
-	    <th data-priority="1">Last name</th>
-	    <th data-priority="2">First name</th>
+	    <th data-priority="1">First name</th>
+	    <th data-priority="2">Last name</th>
 	    <th data-priority="4">Email</th>
 	    <th data-priority="5">Room Number</th>
 	    <th data-priority="6">Phone number</th>
@@ -32,6 +32,7 @@
 		  <td>${module.name}</td>
 	  </tr>
 	  </c:forEach>
+	  
     </tr>
      </c:forEach>
   </tbody>
