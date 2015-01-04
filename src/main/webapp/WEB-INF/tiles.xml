@@ -74,4 +74,30 @@
         <put-attribute name="title" value="Display Deferrals"></put-attribute>  
         <put-attribute name="body" value="/WEB-INF/jsp/deferral/displayDeferrals.jsp"></put-attribute>  
 	</definition>
+	
+	<definition extends="base.definition" name="login">  
+        <put-attribute name="title" value="Login"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/templating/login.jsp"></put-attribute>
+	</definition>
+	
+	<definition extends="base.definition" name="addModule">  
+        <put-attribute name="title" value="Add Module"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/module/addModule.jsp"></put-attribute>
+	</definition>
+	<definition extends="base.definition" name="deleteModule">  
+        <put-attribute name="title" value="Delete Module"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/module/deleteModule.jsp"></put-attribute>
+	</definition>
+	<definition extends="base.definition" name="modifyModule">  
+        <put-attribute name="title" value="Modify Module"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/module/modifyModule.jsp"></put-attribute>
+	</definition>
+	<definition extends="base.definition" name="displayModule">  
+        <put-attribute name="title" value="Display Module"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/module/displayModule.jsp"></put-attribute>
+	</definition>
+	<definition extends="base.definition" name="displayModules">  
+        <put-attribute name="title" value="Display Modules"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/module/displayModules.jsp"></put-attribute>
+	</definition>
 </tiles-definitions>
