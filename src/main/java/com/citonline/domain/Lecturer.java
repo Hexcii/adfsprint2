@@ -94,7 +94,7 @@ public class Lecturer extends Person {
 	 * 
 	 * @return the taughtModules
 	 */
-	public ArrayList<Module> getModulesTaught() {
+	public ArrayList<Module> getTaughtModules() {
 		return taughtModules;
 	}
 
@@ -102,7 +102,7 @@ public class Lecturer extends Person {
 	 * 
 	 * @param taughtModules the taughtModules to set
 	 */
-	public void setModulesTaught(ArrayList<Module> taughtModules) {
+	public void setTaughtModules(ArrayList<Module> taughtModules) {
 		this.taughtModules = taughtModules;
 	}
 

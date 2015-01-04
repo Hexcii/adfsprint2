@@ -7,8 +7,8 @@
 			<tr>
 			<th data-priority="9">Image </th>
 			<th data-priority="3">Lecturer ID</th>
-			<th data-priority="1">Last name</th>
-			<th data-priority="2">First name</th>
+			<th data-priority="1">First name</th>
+			<th data-priority="2">Last name</th>
 			<th data-priority="4">Email</th>
 			<th data-priority="5">Room Number</th>
 			<th data-priority="6">Phone number</th>
@@ -20,12 +20,11 @@
 		<tbody>
 	    	<c:forEach var="lecturer" items="${lecturers}" varStatus="status">
 				<tr>
-					<td>${lecturer.id}</td>
 					<td><img alt="lecturer" width="24" border="0" align="middle"
 						src='<c:url value="/resources/images/songwriter1.jpg"/>'></td>
+					<td>${lecturer.id}</td>
 					<td>${lecturer.firstName}</td>
 					<td>${lecturer.lastName}</td>
-					<td>${lecturer.age}</td>
 					<td>${lecturer.email}</td>          
 					<td>${lecturer.roomNumber}</td>          
 					<td>${lecturer.phoneNumber}</td>          
@@ -36,7 +35,7 @@
 						</tr>
 					</c:forEach>
 					<td><a
-						href="<%= request.getContextPath() %>/songwriter/modify/id/${status.current.id}"
+						href="<%= request.getContextPath() %>/lecturer/modify/id/${lecturer.id}"
 						class="ui-btn">Modify</a></td>
 				</tr>
 			</c:forEach>
