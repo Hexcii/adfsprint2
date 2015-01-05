@@ -1,4 +1,4 @@
-<h2>The following songwriter has been successfully added to the system</h2>
+<h2>The following deferral has been successfully added to the system</h2>
 
 <table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myTable">
   <thead>
