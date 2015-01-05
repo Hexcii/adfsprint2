@@ -49,14 +49,14 @@ public class DeferralController
 	    return "displayDeferrals";
 	}
 	@RequestMapping(value="/deferralAll", method=RequestMethod.GET)
-	public String getlAllDefferal(ModelMap model){
-		//List<Deferral> deferrals=new ArrayList<Deferral>();
-		//deferrals=deferralDAO.getAllDefferals();
-		model.addAttribute("message", "this is the deferalStatus page");
-		//model.addAttribute("deferrals", deferrals);
+	public String getAllDefferal(ModelMap model){
+		List<Deferral> deferrals=new ArrayList<Deferral>();
+		deferrals=deferralDAO.getAllDefferals();
+		model.addAttribute("message", "this is the deferal list all page");
+		model.addAttribute("deferrals", deferrals);
 	    return "displayDeferrals";
 	}
-	@RequestMapping(value="/listDeferralStatus/{status}/", method=RequestMethod.GET)
+	@RequestMapping(value="/listDeferralStatus/{status}", method=RequestMethod.GET)
 	public String getDefferalByStatusName(@PathVariable("status") String status, ModelMap model){
 		List<Deferral> deferrals=new ArrayList<Deferral>();
 		deferrals=deferralDAO.getDefferalsStatusName(status);
@@ -101,7 +101,7 @@ public class DeferralController
 	
 	@RequestMapping(value = "/addNewDeferral", method = RequestMethod.POST)
 	public String displaySongwriter(@ModelAttribute("deferral") Deferral deferral, ModelMap model) {
-		 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		 DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
 		   Date date = new Date();
 		   String today = dateFormat.format(date).toString();
 	 
@@ -113,12 +113,12 @@ public class DeferralController
 		
 		
 		try {
-			deferralDAO.createDeferral(today, deferral.getId_program(), deferral.getId_student(), deferral.getProgramDeferred(), 1);
+			deferralDAO.createDeferral(today, deferral.getId_program(), deferral.getId_student(), false, 1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//model.addAttribute("deferral", deferral);
-		return "displayDeferral";
+		model.addAttribute("deferral", deferral);
+		return "displayDeferrals";
 	}
 	@RequestMapping(value = "/modifyDeferral", method = RequestMethod.GET) 
 	public String updateDeferralStatusByName()

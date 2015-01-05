@@ -5,7 +5,6 @@
 <table data-role="table" class="ui-responsive" data-mode="columntoggle" id="myTable">
 	<thead>
     	<tr>
-			<th data-priority="9">Image </th>
 			<th data-priority="3">deferral ID</th>
 			<th data-priority="1">Student ID</th>
 			<th data-priority="1">program ID</th>
@@ -21,10 +20,10 @@
     	<tr>
 	 		<td>${deferral.id}</td>
 			<td>${deferral.id_student}</td>
-			<td>${deferral.id_program}</td>          
-			<td>${deferral.deferral_date}</td>          
+			<td>${deferral.id_program}</td> 
+			<td>${deferral.deferral_date}</td>         
 			<td>${deferral.programDeferred}</td>          
-			<td>${deferral.deferralStatus}</td>          
+			<td>${deferral.id_deferral_status}</td>          
 		</tr>
 	</c:forEach>
   </tbody>   
