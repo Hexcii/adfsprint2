@@ -10,7 +10,7 @@ import com.citonline.interfaces.StudentInt;
 
 /**
 * @author  Declan Murphy
-* @since   29-10-2014
+* @since   29-10-2014 
 */
 
 public class StudentImpl extends Student implements StudentInt {
@@ -24,6 +24,9 @@ public class StudentImpl extends Student implements StudentInt {
 		super(id, firstName, lastName, email, phoneNumber, studentNumber, addressLine1, addressLine2);	
 		moduleList = new ArrayList<Module>();
 	}
+	
+	public StudentImpl()
+	{}
 
 	@Override
 	public void enrolModule(Module module) {

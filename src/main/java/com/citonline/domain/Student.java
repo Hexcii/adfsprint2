@@ -3,7 +3,7 @@ package com.citonline.domain;
 /**
 * 
 * @author  Declan Murphy
-* @since   29-10-2014
+* @since   29-10-2014 
 */
 
 public class Student extends Person{	
@@ -19,6 +19,8 @@ public class Student extends Person{
 		this.addressLine2 = addressLine2;
 	}	
 
+	public Student(){}
+	
 	public String getAddressLine1() {
 		return addressLine1;
 	}
