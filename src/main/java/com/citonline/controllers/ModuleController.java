@@ -1,5 +1,7 @@
 package com.citonline.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.citonline.db.interfaces.ModuleDAO;
 import com.citonline.domain.Module;
+import com.citonline.interfaces.impl.LecturerImpl;
+import com.citonline.interfaces.impl.ModuleImpl;
 /**
  * 
  * @author tim wallace
@@ -25,7 +29,7 @@ public class ModuleController
 	@Autowired
 	ModuleDAO moduleDAO;
 	
-	@RequestMapping(value="/listName/{firstName}/{lastName}", method=RequestMethod.GET)
+	@RequestMapping(value="/displayModules", method=RequestMethod.GET)
 	public String getModule(@PathVariable("crn") String crn, ModelMap model){
 		Module module = moduleDAO.getModule(crn);
 		model.addAttribute("module", module);
@@ -51,11 +55,11 @@ public class ModuleController
 	@RequestMapping(value = "/createModule", method = RequestMethod.POST)
 	public String display(@ModelAttribute("module") Module module, ModelMap model) {
 
-		model.addAttribute("module_id", module.getId());
-		model.addAttribute("module_code", module.getCode());
-		model.addAttribute("module_crn", module.getCrn());
-		model.addAttribute("module_name", module.getName());
-		model.addAttribute("module_semester", module.getSemester());	
+		model.addAttribute("id_module", module.getId());
+		model.addAttribute("code_module", module.getCode());
+		model.addAttribute("crn_module", module.getCrn());
+		model.addAttribute("name_module", module.getName());
+		model.addAttribute("semester_module", module.getSemester());	
 		
 		try {
 			moduleDAO.createModule(module.getCode(), module.getCrn(), module.getName(), module.getSemester());
@@ -66,9 +70,10 @@ public class ModuleController
 		return "displayModule";
 	}
 	@RequestMapping(value = "/modifyModule", method = RequestMethod.GET) 
-	public String updateModule()
+	public String updateModule(ModelMap model)
 	{
+		List<Module> modules = moduleDAO.listModules();
+		model.addAttribute("modules", modules);
 		return "modifyModule";
 	}
-	
 }
