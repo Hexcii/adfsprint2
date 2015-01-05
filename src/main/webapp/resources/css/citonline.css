@@ -3,13 +3,13 @@ body {
 	fixed left top;
 	color: #000000;
 	font-family: 'Lucida Grande',sans-serif;
-	font-size: 3em;
+	font-size: 1em;
 	font-size-adjust: none;
 	font-stretch: normal;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: normal;
-	line-height: 1.5;
+	line-height: 1;
 	text-align: center;
 	height: 100%; 
 	width: 100%;

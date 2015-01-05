@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.citonline.db.interfaces.StudentDAO;
 import com.citonline.interfaces.impl.StudentImpl;
 
+/**
+ * @author Declan
+ *
+ */
+
 @Controller
 @RequestMapping("/student")
 public class StudentController {
@@ -25,7 +30,7 @@ public class StudentController {
 			
 			List<StudentImpl> listStudents = studentDAO.listStudents();
 			model.addAttribute("students", listStudents);
-		    return "displayStudents";
+		    return "displayStudent";
 		}
 	
 	@RequestMapping(value="/list/{studentNumber}", method=RequestMethod.GET)
@@ -39,10 +44,10 @@ public class StudentController {
 	    return "displayStudents";
 	}
 	
-	@RequestMapping(value = "/addNew", method = RequestMethod.GET) 
+	@RequestMapping(value = "/addNewStudent", method = RequestMethod.GET) 
 	public String addNewStudent(ModelMap model) {    
 		model.addAttribute("student", new StudentImpl());	
-		return "newStudent";
+		return "addNewStudent";
 	} 
 
 	/*
