@@ -3,7 +3,7 @@ package com.citonline.domain;
 /**
 * 
 * @author  Declan Murphy
-* @since   29-10-2014
+* @since   29-10-2014 
 */
 
 public class Student extends Person{	

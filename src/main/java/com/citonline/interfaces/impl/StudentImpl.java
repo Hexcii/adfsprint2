@@ -10,7 +10,7 @@ import com.citonline.interfaces.StudentInt;
 
 /**
 * @author  Declan Murphy
-* @since   29-10-2014
+* @since   29-10-2014 
 */
 
 public class StudentImpl extends Student implements StudentInt {
