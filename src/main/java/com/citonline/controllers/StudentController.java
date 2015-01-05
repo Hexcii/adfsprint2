@@ -1,16 +1,27 @@
 package com.citonline.controllers;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.ServletContext;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.citonline.db.interfaces.StudentDAO;
+import com.citonline.exceptions.ImageUploadException;
 import com.citonline.interfaces.impl.StudentImpl;
 
 /**
@@ -24,13 +35,15 @@ public class StudentController {
 	
 	@Autowired
 	StudentDAO studentDAO;
+	@Autowired
+    private ServletContext servletContext;
 	
 	@RequestMapping(value={"/listall", "/listAll"}, method = RequestMethod.GET)
 	public String listAll(ModelMap model) {
 			
 			List<StudentImpl> listStudents = studentDAO.listStudents();
 			model.addAttribute("students", listStudents);
-		    return "displayStudent";
+		    return "displayStudents";
 		}
 	
 	@RequestMapping(value="/list/{studentNumber}", method=RequestMethod.GET)
@@ -41,41 +54,42 @@ public class StudentController {
 		listStudents.add(student);
 		
 		model.addAttribute("students", listStudents);
-	    return "displayStudents";
+	    return "displayStudent";
 	}
 	
 	@RequestMapping(value = "/addNewStudent", method = RequestMethod.GET) 
 	public String addNewStudent(ModelMap model) {    
 		model.addAttribute("student", new StudentImpl());	
 		return "addNewStudent";
-	} 
+	}
 
-	/*
-	@RequestMapping(value = "/addNew", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/addNewStudent", method = RequestMethod.POST)
 	public String displayStudent(@ModelAttribute("student") @Valid StudentImpl student,
-			@RequestParam("file") MultipartFile file,
+		/*	@RequestParam("file") MultipartFile file,*/
 			BindingResult result, ModelMap model) {
 		
 		if(result.hasErrors())
-			return "newStudent"; 
+			return "addNewStudent"; 
 		
-		try {
+/*		try {
 			 if (!file.isEmpty()) {
 				 
-				 validateImage(file);
+				 validateImage(file);*/
 				 
 		            try {     
 		            	model.addAttribute("firstName", student.getFirstName());
 			        	model.addAttribute("lastName", student.getLastName());
+			        	model.addAttribute("studentNumber", student.getStudentNumber());
 			        	model.addAttribute("email", student.getEmail());
 			        	model.addAttribute("phoneNumber", student.getPhoneNumber());
-			        	model.addAttribute("roomNumber", student.getRoomNumber());
-			        	model.addAttribute("idManagedProgram", student.getIdManagedProgram());
-			        	int id= studentDAO.createStudentGetID(student.getFirstName(), student.getLastName(), student.getEmail(),
-			        			student.getPhoneNumber(), student.getRoomNumber(), student.getIdManagedProgram());
+			        	model.addAttribute("addressLine1", student.getAddressLine1());
+			        	model.addAttribute("addressLine2", student.getAddressLine2());
+			        	int id= studentDAO.createStudentGetID(student.getFirstName(), student.getLastName(), student.getStudentNumber(),
+			        			student.getEmail(),student.getPhoneNumber(),student.getAddressLine1(),student.getAddressLine2());
 			        	model.addAttribute("id", Integer.toString(id));
 		            	
-		                byte[] bytes = file.getBytes(); 
+		               /* byte[] bytes = file.getBytes(); 
 		                File dir = new File(servletContext.getRealPath("/")+"/resources/images");
 		                System.out.println(dir.getAbsolutePath());
 		                
@@ -92,14 +106,14 @@ public class StudentController {
 		                        new FileOutputStream(serverFile));
 		                
 		                stream.write(bytes);
-		                stream.close();		  
+		                stream.close();		*/  
 		    			
 		            } catch (Exception e) {
 		            	model.addAttribute("message", "Creation of student failed, "+e.getLocalizedMessage());
 						return "displayError"; 
 
 		            }
-			 }else{
+			/* }else{
 				 model.addAttribute("message", "You failed to upload " + file.getOriginalFilename() + " because the file was empty.");
 				 return "displayError"; 
 			 }
@@ -107,12 +121,18 @@ public class StudentController {
 				 model.addAttribute("message", "Creation of student failed. The system only supports JPEGs.");
 				 return "displayError"; 
 			
-			}		
+			}		*/
 		
 		return "displayStudent";
 
 	}
 	
+/*	private void validateImage(MultipartFile image){
+		if(!image.getContentType().equals("image/jpeg")){
+			throw new ImageUploadException("OnlyJPGimagesaccepted");
+		}
+	}*/
+	/*
 	
 	@RequestMapping(value="/modify", method = RequestMethod.GET)
 	public String modify(ModelMap model) {

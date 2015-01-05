@@ -92,7 +92,7 @@ tr:nth-child(even) {
     <h1 data-icon="search">List All</h1>
     <ul data-role="listview" data-inset="true">
       <li><a href="#">Lecturer</a></li>
-      <li><a href="#">Student</a></li>
+      <li><a href="<%= request.getContextPath() %>/student/displayStudents">Student</a></li>
       <li><a href="#">Deferral</a></li>
  	</ul>     
   </div>
