@@ -19,7 +19,7 @@ import com.citonline.domain.Module;
  *
  */
 @Controller 
-@RequestMapping("/deferral")
+@RequestMapping("/module")
 public class ModuleController 
 {
 	@Autowired
