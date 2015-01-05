@@ -47,19 +47,19 @@ public class ModuleController
 	    return "deleteModule";
 	}
 	
-	@RequestMapping(value = "/createModule", method = RequestMethod.GET) 
-	public ModelAndView createModule() {                                
-		return new ModelAndView("createModule", "module", new Module());
+	@RequestMapping(value = "/addModule", method = RequestMethod.GET) 
+	public ModelAndView addModule() {                                
+		return new ModelAndView("addModule", "module", new Module());
 	} 
 	
-	@RequestMapping(value = "/createModule", method = RequestMethod.POST)
+	@RequestMapping(value = "/addModule", method = RequestMethod.POST)
 	public String display(@ModelAttribute("module") Module module, ModelMap model) {
 
-		model.addAttribute("id_module", module.getId());
-		model.addAttribute("code_module", module.getCode());
-		model.addAttribute("crn_module", module.getCrn());
-		model.addAttribute("name_module", module.getName());
-		model.addAttribute("semester_module", module.getSemester());	
+		model.addAttribute("id", module.getId());
+		model.addAttribute("code", module.getCode());
+		model.addAttribute("crn", module.getCrn());
+		model.addAttribute("name", module.getName());
+		model.addAttribute("semester", module.getSemester());	
 		
 		try {
 			moduleDAO.createModule(module.getCode(), module.getCrn(), module.getName(), module.getSemester());
