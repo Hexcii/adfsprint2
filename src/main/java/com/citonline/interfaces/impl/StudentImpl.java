@@ -24,6 +24,9 @@ public class StudentImpl extends Student implements StudentInt {
 		super(id, firstName, lastName, email, phoneNumber, studentNumber, addressLine1, addressLine2);	
 		moduleList = new ArrayList<Module>();
 	}
+	
+	public StudentImpl()
+	{}
 
 	@Override
 	public void enrolModule(Module module) {

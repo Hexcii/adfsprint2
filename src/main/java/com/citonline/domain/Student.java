@@ -19,6 +19,8 @@ public class Student extends Person{
 		this.addressLine2 = addressLine2;
 	}	
 
+	public Student(){}
+	
 	public String getAddressLine1() {
 		return addressLine1;
 	}
