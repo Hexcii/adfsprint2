@@ -38,7 +38,7 @@ public class StudentController {
 	@Autowired
     private ServletContext servletContext;
 	
-	@RequestMapping(value={"/listall", "/listAll"}, method = RequestMethod.GET)
+	@RequestMapping(value={"/displayStudents"}, method = RequestMethod.GET)
 	public String listAll(ModelMap model) {
 			
 			List<StudentImpl> listStudents = studentDAO.listStudents();
@@ -77,7 +77,7 @@ public class StudentController {
 				 
 				 validateImage(file);*/
 				 
-		            try {     
+		            try {   		            	
 		            	model.addAttribute("firstName", student.getFirstName());
 			        	model.addAttribute("lastName", student.getLastName());
 			        	model.addAttribute("studentNumber", student.getStudentNumber());
@@ -87,8 +87,8 @@ public class StudentController {
 			        	model.addAttribute("addressLine2", student.getAddressLine2());
 			        	int id= studentDAO.createStudentGetID(student.getFirstName(), student.getLastName(), student.getStudentNumber(),
 			        			student.getEmail(),student.getPhoneNumber(),student.getAddressLine1(),student.getAddressLine2());
-			        	model.addAttribute("id", Integer.toString(id));
-		            	
+			        	model.addAttribute("id", id);
+			        	model.addAttribute("id_student", id);
 		               /* byte[] bytes = file.getBytes(); 
 		                File dir = new File(servletContext.getRealPath("/")+"/resources/images");
 		                System.out.println(dir.getAbsolutePath());
