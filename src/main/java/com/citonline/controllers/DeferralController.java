@@ -111,15 +111,17 @@ public class DeferralController
 		model.addAttribute("id_program", deferral.getId_program());
 		model.addAttribute("program_deferred", deferral.getProgramDeferred());	
 		
+		System.out.print(today +" "+ deferral.getId_student() + " " +deferral.getId_program()+ " " + deferral.getProgramDeferred());
 		
 		try {
-			deferralDAO.createDeferral(today, deferral.getId_program(), deferral.getId_student(), false, 1);
+			deferralDAO.createDeferral(today, deferral.getId_program(), deferral.getId_student(), deferral.getProgramDeferred(), 1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		model.addAttribute("deferral", deferral);
 		return "displayDeferrals";
 	}
+	
 	@RequestMapping(value = "/modifyDeferral", method = RequestMethod.GET) 
 	public String updateDeferralStatusByName()
 	{
