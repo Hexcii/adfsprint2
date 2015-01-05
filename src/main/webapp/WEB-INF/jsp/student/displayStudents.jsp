@@ -1,11 +1,9 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 
-<h2>${message}</h2>
-
+<c:if test="${not empty students}">
 <table data-role="table" class="ui-responsive" data-mode="columntoggle" id="studentTable">
 	<thead>
     	<tr>
-		<!-- 	<th data-priority="9">Image </th> -->
 			<th data-priority="1">Student ID</th>
 			<th data-priority="2">First Name</th>
 			<th data-priority="3">Last Name</th>
@@ -18,6 +16,7 @@
 	</thead>
   
   	<tbody>
+  		<c:forEach var="student" items="${students}">
     	<tr>
 	 		<td>${student.id}</td>
 			<td>${student.firstName}</td>
@@ -28,4 +27,14 @@
 			<td>${student.addressLine1}</td>
 			<td>${student.addressLine2}</td>     
 		</tr>
-  </tbody>   
+		</c:forEach>
+  </tbody>
+
+</table>
+	</c:if>
+	
+	<c:if test="${empty students}">
+	<div class="notification warning">
+		No students.
+	</div>
+	</c:if>

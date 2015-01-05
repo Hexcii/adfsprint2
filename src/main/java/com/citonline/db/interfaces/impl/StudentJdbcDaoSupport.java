@@ -2,6 +2,7 @@ package com.citonline.db.interfaces.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,11 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
+import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
+import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,6 +61,34 @@ public class StudentJdbcDaoSupport extends JdbcDaoSupport implements StudentDAO 
 				"\nStudent Number = " + studentNumber + ", email = " + email + ", phoneNumber = "
 				+phoneNumber + ", address = " + addressLine1 + " " + addressLine2);
 		
+	}
+	
+	@Transactional
+	public int createStudentGetID(String firstName, String lastName,
+			String studentNumber, String email, String phoneNumber,
+			String addressLine1, String addressLine2) {
+
+		String SQL = "INSERT INTO Student (firstName, lastName, studentNumber, "
+				+ "email, phoneNumber,"
+				+ "addressLine1, addressLine2) "
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?)";
+		
+		Object[] params=new Object[]{ firstName, lastName, studentNumber,email,phoneNumber,addressLine1,addressLine2};
+		PreparedStatementCreatorFactory psc=new PreparedStatementCreatorFactory(SQL);
+		psc.addParameter(new SqlParameter("firstName", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("lastName", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("studentNumber", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("email", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("phoneNumber", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("addressLine1", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("addressLine2", Types.VARCHAR));
+
+		KeyHolder holder = new GeneratedKeyHolder();
+		getJdbcTemplate().update(psc.newPreparedStatementCreator(params), holder);
+
+		System.out.println("holder:"+holder.getKey().toString());
+		String key=holder.getKey().toString();
+		return Integer.parseInt(key);
 	}
 
 	@Override

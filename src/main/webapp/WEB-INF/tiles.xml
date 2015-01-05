@@ -101,9 +101,14 @@
         <put-attribute name="body" value="/WEB-INF/jsp/module/displayModules.jsp"></put-attribute>
 	</definition>
 	
-	    <definition extends="base.definition" name="displayStudent">  
+	<definition extends="base.definition" name="displayStudent">  
        	<put-attribute name="title" value="Display Student"></put-attribute>  
      	<put-attribute name="body" value="/WEB-INF/jsp/student/displayStudent.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="displayStudents">  
+       	<put-attribute name="title" value="Display Students"></put-attribute>  
+     	<put-attribute name="body" value="/WEB-INF/jsp/student/displayStudents.jsp"></put-attribute>  
 	</definition>
 	
 	<definition extends="base.definition" name="addNewStudent">  
