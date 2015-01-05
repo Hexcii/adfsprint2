@@ -76,13 +76,22 @@ public class Deferral
 	public void setId_program(int id_program) {
 		this.id_program = id_program;
 	}
-	public String getDefferalDate() {
+	
+	public String getDeferral_date() {
 		return deferral_date;
 	}
-	public void setDefferalDate(String defferal_date) {
-		this.deferral_date = defferal_date;
+	public void setDeferral_date(String deferral_date) {
+		this.deferral_date = deferral_date;
 	}
-	
+	public ArrayList<Module> getDeferredModules() {
+		return deferredModules;
+	}
+	public void setDeferredModules(ArrayList<Module> deferredModules) {
+		this.deferredModules = deferredModules;
+	}
+	public void setProgramDeferred(boolean programDeferred) {
+		this.programDeferred = programDeferred;
+	}
 	public int getId_student() {
 		return id_student;
 	}

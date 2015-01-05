@@ -3,6 +3,7 @@ package com.citonline.db.interfaces.impl;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
@@ -18,6 +19,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import com.citonline.db.interfaces.DeferralDAO;
 import com.citonline.domain.Deferral;
 import com.citonline.domain.Module;
+import com.citonline.interfaces.impl.StudentImpl;
 
 /**
  * 
@@ -248,11 +250,10 @@ public class DeferralJdbDaoSupport extends JdbcDaoSupport implements
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public ArrayList<Deferral>getAllDefferals()
 	{
-		int status =3;
-		String SQL = "select * from deferral where id_deferral_status !=? )";
+		String SQL = "select * from deferral";
 		@SuppressWarnings("unchecked")
 		ArrayList<Deferral> deferrals = (ArrayList<Deferral>) getJdbcTemplate()
-				.query(SQL, new Object[] { status }, new DeferralMapper());
+				.query(SQL, new DeferralMapper());
 		return deferrals;
 	}
 	/**
@@ -270,5 +271,4 @@ public class DeferralJdbDaoSupport extends JdbcDaoSupport implements
 						new DeferralMapper());
 		return deferral;
 	}
-	
 }
