@@ -120,4 +120,9 @@
         <put-attribute name="title" value="Deferral All"></put-attribute>  
         <put-attribute name="body" value="/WEB-INF/jsp/deferral/displayDeferrals.jsp"></put-attribute>  
 	</definition>
+	
+	<definition extends="base.definition" name="removeStudent">  
+		<put-attribute name="title" value="Remove Student"></put-attribute>  
+       	<put-attribute name="body" value="/WEB-INF/jsp/student/removeStudent.jsp"></put-attribute>  
+	</definition>
 </tiles-definitions>

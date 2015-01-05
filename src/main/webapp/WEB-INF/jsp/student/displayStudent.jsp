@@ -28,4 +28,5 @@
 			<td>${student.addressLine1}</td>
 			<td>${student.addressLine2}</td>     
 		</tr>
-  </tbody>   
+  </tbody> 
+ </table>  

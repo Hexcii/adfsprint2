@@ -75,7 +75,7 @@ tr:nth-child(even) {
     <h1 data-icon="delete">Remove</h1>
     <ul data-role="listview" data-inset="true">
       <li><a href="#">Lecturer</a></li>
-      <li><a href="#">Student</a></li>
+      <li><a href="<%= request.getContextPath() %>/student/removeStudent">Student</a></li>
       <li><a href="#">Deferral</a></li>
       <li><a href="#">Module</a></li>
  	</ul> 

@@ -24,6 +24,7 @@ import com.citonline.db.interfaces.StudentDAO;
 import com.citonline.exceptions.ImageUploadException;
 import com.citonline.interfaces.impl.StudentImpl;
 
+
 /**
  * @author Declan
  *
@@ -227,17 +228,28 @@ public class StudentController {
 		model.addAttribute("lastName", studentModify.getLastName());
 		model.addAttribute("phoneNumber", studentModify.getRoomNumber());
 		return "displayStudent";
-	}
+	}	
+	*/
 	
-	@RequestMapping(value ="/delete/id/{id}", method = RequestMethod.GET) 
+	@RequestMapping(value = "/removeStudent", method = RequestMethod.GET) 
+	public String deleteSongwriter(ModelMap model) {   
+		List<StudentImpl> listStudents=studentDAO.listStudents();
+		model.addAttribute("students", listStudents);		
+		return "removeStudent";
+	} 
+	
+	@RequestMapping(value ="/removeStudent/id/{id}", method = RequestMethod.GET) 
 	public String deleteSongwriterbyId(@PathVariable int id, ModelMap model) { 
 		StudentImpl studentDelete=studentDAO.getStudent(id);
 		studentDAO.deleteStudent(id);
-		model.addAttribute("message", "Student with id "+ id +" and details below have been deleted from the system");
+		model.addAttribute("message", "Student " + studentDelete.getFirstName() + " " +
+				studentDelete.getLastName() + " has been deleted from the system");
 		model.addAttribute("firstName", studentDelete.getFirstName());
 		model.addAttribute("lastName", studentDelete.getLastName());
-		return "displayStudent";
+		model.addAttribute("studentNumber", studentDelete.getStudentNumber());
+		List<StudentImpl> listStudents=studentDAO.listStudents();
+		model.addAttribute("students", listStudents);	
+		return "removeStudent";
 	}
-	
-	*/
+
 }
