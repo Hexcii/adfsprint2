@@ -110,4 +110,9 @@
 		<put-attribute name="title" value="Add New Student"></put-attribute>  
        	<put-attribute name="body" value="/WEB-INF/jsp/student/newStudent.jsp"></put-attribute>  
 	</definition>
+	
+	<definition extends="base.definition" name="deferralAll">  
+        <put-attribute name="title" value="Deferral All"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/deferral/displayDeferrals.jsp"></put-attribute>  
+	</definition>
 </tiles-definitions>

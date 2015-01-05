@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.citonline.db.interfaces.DeferralDAO;
+import com.citonline.db.interfaces.ModuleDAO;
 import com.citonline.db.interfaces.StudentDAO;
 import com.citonline.domain.Deferral;
 import com.citonline.domain.Student;
+import com.citonline.interfaces.impl.StudentImpl;
 /**
  * 
  * @author peter halligan
@@ -33,6 +35,10 @@ public class DeferralController
 
 	@Autowired
 	DeferralDAO deferralDAO;
+	@Autowired
+	StudentDAO studentdao;
+	@Autowired
+	ModuleDAO moduledao;
 	
 	@RequestMapping(value="/deferralStatus/{status}", method=RequestMethod.GET)
 	public String getlDefferalStatus(@PathVariable("status") int status, ModelMap model){
@@ -40,6 +46,14 @@ public class DeferralController
 		deferrals=deferralDAO.getDefferalsStatus(status);
 		model.addAttribute("message", "this is the deferalStatus page");
 		model.addAttribute("deferrals", deferrals);
+	    return "displayDeferrals";
+	}
+	@RequestMapping(value="/deferralAll", method=RequestMethod.GET)
+	public String getlAllDefferal(ModelMap model){
+		//List<Deferral> deferrals=new ArrayList<Deferral>();
+		//deferrals=deferralDAO.getAllDefferals();
+		model.addAttribute("message", "this is the deferalStatus page");
+		//model.addAttribute("deferrals", deferrals);
 	    return "displayDeferrals";
 	}
 	@RequestMapping(value="/listDeferralStatus/{status}/", method=RequestMethod.GET)
@@ -111,13 +125,4 @@ public class DeferralController
 	{
 		return "modifyDeferral";
 	}
-	@RequestMapping(value = "/getStudent", method = RequestMethod.GET) 
-	public String getStudent()
-	{
-		StudentDAO student = new StudentDAO();
-		ArrayList<Student> students = new ArrayList<Student>();
-			students = 	student.listStudents();
-		return "displayStudent";
-	}
-	
 }

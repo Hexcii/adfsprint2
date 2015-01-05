@@ -249,7 +249,7 @@ public class DeferralJdbDaoSupport extends JdbcDaoSupport implements
 	public ArrayList<Deferral>getAllDefferals()
 	{
 		int status =3;
-		String SQL = "select * from deferral where id_deferral_status !=? )";
+		String SQL = "select * from deferral where id_deferral_status !=?";
 		@SuppressWarnings("unchecked")
 		ArrayList<Deferral> deferrals = (ArrayList<Deferral>) getJdbcTemplate()
 				.query(SQL, new Object[] { status }, new DeferralMapper());
