@@ -17,6 +17,12 @@
  </div>
  
  <div class="ui-field-contain">
+ <form:label path="studentNumber">Student Number</form:label>
+ <form:input path="studentNumber" placeholder="studentNumber" value=""/>
+ <form:errors path="studentNumber" cssClass="error" class="notification error" style="display:block"></form:errors>
+ </div>
+ 
+ <div class="ui-field-contain">
  <form:label path="email">Email</form:label>
  <form:input path="email" placeholder="email" value=""/>
  <form:errors path="email" cssClass="error" class="notification error" style="display:block"></form:errors>
@@ -28,7 +34,18 @@
  <form:errors path="phoneNumber" cssClass="error" class="notification error" style="display:block"></form:errors>
  </div>
  
+ <div class="ui-field-contain">
+ <form:label path="addressLine1">Address 1</form:label>
+ <form:input path="addressLine1" placeholder="addressLine1" value=""/>
+ <form:errors path="addressLine1" cssClass="error" class="notification error" style="display:block"></form:errors>
+ </div>
  
+ 
+  <div class="ui-field-contain">
+ <form:label path="addressLine2">Address 2</form:label>
+ <form:input path="addressLine2" placeholder="addressLine2" value=""/>
+ <form:errors path="addressLine2" cssClass="error" class="notification error" style="display:block"></form:errors>
+ </div>
  
  
  <input data-theme="b" type="submit" data-icon="check" value="Save" />

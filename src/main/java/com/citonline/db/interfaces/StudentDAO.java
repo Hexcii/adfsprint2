@@ -19,6 +19,10 @@ public interface StudentDAO {
 	public void createStudent(String firstName, String lastName, String studentNumber, String email,
 			String phoneNumber, String addressLine1,String addressLine2);
 	
+	public int createStudentGetID(String firstName, String lastName,
+			String studentNumber, String email, String phoneNumber,
+			String addressLine1, String addressLine2);
+	
 	public void deleteStudent(Integer id);
 
 	public void deleteStudent(String studentNumber);	
