@@ -19,7 +19,7 @@
 			<td>${crn_module}</td>
 			<td>${name_module}</td> 
 			<td>${semester_module}</td>
-			<td><a href="<%= request.getContextPath() %>/module/modify/id/${id_module}"
+			<td><a href="<%= request.getContextPath() %>/modifyModule"
 						class="ui-btn">Modify Module</a></td>
 		</tr>
 	</tbody>

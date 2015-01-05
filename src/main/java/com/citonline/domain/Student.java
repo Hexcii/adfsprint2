@@ -17,7 +17,7 @@ public class Student extends Person{
 		this.studentNumber = studentNumber;
 		this.addressLine1 = addressLine1;
 		this.addressLine2 = addressLine2;
-	}	
+	}
 
 	public Student(){}
 	
