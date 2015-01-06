@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 		
-<h3>Modify module.</h3>
+<h2>${message}</h2>
 
 <table data-role="table" class="ui-responsive" data-mode="columntoggle" id="myTable">
 	<thead>
@@ -12,13 +12,16 @@
 		</tr>
 	</thead>	
 	<tbody>
+		<c:forEach var="module" items="${modules}">
 		<tr>
 	      <td>${module.code}</td>
 	      <td>${module.crn}</td>
 	      <td>${module.name}</td> 
 	      <td>${module.semester}</td> 
-			<td><a href="<%= request.getContextPath() %>/modifyModule"
-						class="ui-btn">Modify Module</a></td>
+			<td><a href="<%= request.getContextPath() %>/module/modifyModuleForm/crn/${module.crn}"
+						class="ui-btn">Modify</a></td>
 		</tr>
+		</c:forEach>
 	</tbody>
 </table>
+

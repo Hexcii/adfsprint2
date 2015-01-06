@@ -1,12 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Module</title>
-</head>
-<body>
-<h3>Unfinished!!!</h3>
-</body>
-</html>
+<%@ include file="/WEB-INF/jsp/include.jsp"%>
+		
+<h2>${message}</h2>
+
+<table data-role="table" class="ui-responsive" data-mode="columntoggle" id="myTable">
+	<thead>
+		<tr>
+		   <th data-priority="1">Module Code</th>
+		   <th data-priority="2">Module CRN</th>     
+		   <th data-priority="3">Module Name</th>     
+		   <th data-priority="4">Module Semester</th> 
+		</tr>
+	</thead>	
+	<tbody>
+		<c:forEach var="module" items="${modules}">
+		<tr>
+	      <td>${module.code}</td>
+	      <td>${module.crn}</td>
+	      <td>${module.name}</td>
+	      <td>${module.semester}</td> 
+			<td><a href="<%= request.getContextPath() %>/module/deleteModule/crn/${module.crn}"
+						class="ui-btn">Delete</a></td>
+		</tr>
+		</c:forEach>
+	</tbody>
+</table>
+

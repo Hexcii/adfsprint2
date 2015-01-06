@@ -12,13 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.citonline.db.interfaces.ModuleDAO;
-import com.citonline.domain.Module;
-import com.citonline.interfaces.impl.LecturerImpl;
 import com.citonline.interfaces.impl.ModuleImpl;
-import com.citonline.interfaces.impl.StudentImpl;
 /**
  * 
  * @author tim wallace
@@ -33,16 +29,8 @@ public class ModuleController
 	@Autowired
 	ModuleDAO moduleDAO;
 	
-//	@RequestMapping(value="/displayModules", method=RequestMethod.GET)
-//	public String getModule(@PathVariable("crn") String crn, ModelMap model){
-//		ModuleImpl module = moduleDAO.getModule(crn);
-//		model.addAttribute("module", module);
-//	    return "displayModules";
-//	}
-	
 	@RequestMapping(value={"/displayModules"}, method = RequestMethod.GET)
 	public String listAll(ModelMap model) {
-			
 			List<ModuleImpl> listModules = moduleDAO.listModules();
 			model.addAttribute("modules", listModules);
 		    return "displayModules";
@@ -60,16 +48,6 @@ public class ModuleController
 		model.addAttribute("module", module);
 	    return "displayModule";
 	}	
-	@RequestMapping(value="/deleteModule", method=RequestMethod.GET)
-	//public String delete(@PathVariable String crn, ModelMap model){
-	public String deleteModule(ModelMap model){
-		//Module module = moduleDAO.getModule(crn);
-		//moduleDAO.deleteModule(crn);
-		
-		//model.addAttribute("Delete", "Module with crn "+ crn);
-		model.addAttribute("deleting", "deletingModule");
-	    return "deleteModule";
-	}
 	
 	@RequestMapping(value = "/addModule", method = RequestMethod.GET) 
 	public String addModule(ModelMap model) {                                  
@@ -80,7 +58,6 @@ public class ModuleController
 	@RequestMapping(value = "/addModule", method = RequestMethod.POST)
 	public String displayModule(@ModelAttribute("module") @Valid ModuleImpl module,
 			BindingResult result, ModelMap model) {
-		
 		if(result.hasErrors())
 			return "addModule"; 
 		            try {   		            	
@@ -91,31 +68,53 @@ public class ModuleController
 		            }
 		           model.addAttribute(module);
 		return "displayModule";
-	}
+	}	
 	
-//	@RequestMapping(value = "/addModule", method = RequestMethod.POST)
-//	public String display(@ModelAttribute("module") Module module, ModelMap model) {
-//
-//		model.addAttribute("id", module.getId());
-//		model.addAttribute("code", module.getCode());
-//		model.addAttribute("crn", module.getCrn());
-//		model.addAttribute("name", module.getName());
-//		model.addAttribute("semester", module.getSemester());	
-//		
-//		try {
-//			moduleDAO.createModule(module.getCode(), module.getCrn(), module.getName(), module.getSemester());
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//
-//		return "displayModule";
-//	}
-	
-	@RequestMapping(value = "/modifyModule", method = RequestMethod.GET) 
-	public String updateModule(ModelMap model)
-	{
-		List<ModuleImpl> modules = moduleDAO.listModules();
+	@RequestMapping(value="/modifyModule", method = RequestMethod.GET)
+	public String modifyModule(ModelMap model) {
+		List<ModuleImpl> modules=moduleDAO.listModules();
 		model.addAttribute("modules", modules);
 		return "modifyModule";
 	}
+	
+	@RequestMapping(value ="/modifyModuleForm/crn/{crn}", method = RequestMethod.GET)
+	public String modifyModuleByCrn(@PathVariable String crn, ModelMap model) {
+		ModuleImpl moduleModify=moduleDAO.getModule(crn);
+		model.addAttribute("message", "Module with crn "+ crn +" can now be modified");
+		model.addAttribute("module", moduleModify);
+		return "modifyModuleForm";
+	}
+
+	@RequestMapping(value ="/modifyModuleForm/code/{code}/crn/{crn}/name/{name}/semester/{semester}", method = RequestMethod.GET)
+	public String modifyModuleByCrn(@PathVariable String crn,
+			@PathVariable String name,@PathVariable String code,@PathVariable int semester, ModelMap model) {
+		moduleDAO.updateModule(crn, name, code, semester);
+		ModuleImpl moduleModify=moduleDAO.getModule(name);
+		model.addAttribute("message", "Module " + moduleModify.getName() + " has been successfully updated");
+		model.addAttribute("module", moduleModify);
+		return "displayModule";
+	}
+	
+	@RequestMapping(value = "/deleteModule", method = RequestMethod.GET) 
+	public String deleteModule(ModelMap model) {
+		List<ModuleImpl> listModules=moduleDAO.listModules();
+		model.addAttribute("modules", listModules);		
+		return "deleteModule";
+	}
+	
+	@RequestMapping(value ="/deleteModule/crn/{crn}", method = RequestMethod.GET) 
+	public String deleteModuleByCrn(@PathVariable String crn, ModelMap model) { 
+		ModuleImpl moduleDelete=moduleDAO.getModule(crn);
+		moduleDAO.deleteModule(crn);
+		model.addAttribute("message", "Module:" + moduleDelete.getName() + " CRN:" +
+				moduleDelete.getCrn() + " has been deleted from the system");
+		model.addAttribute("code", moduleDelete.getCode());
+		model.addAttribute("name", moduleDelete.getName());
+		model.addAttribute("semester", moduleDelete.getSemester());
+		model.addAttribute("crn", moduleDelete.getCrn());
+		List<ModuleImpl> listModules = moduleDAO.listModules();
+		model.addAttribute("modules", listModules);	
+		return "deleteModule";
+	}
+	
 }

@@ -100,6 +100,10 @@
         <put-attribute name="title" value="Display Modules"></put-attribute>  
         <put-attribute name="body" value="/WEB-INF/jsp/module/displayModules.jsp"></put-attribute>
 	</definition>
+		<definition extends="base.definition" name="modifyModuleForm">  
+        <put-attribute name="title" value="Modify Module"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/module/modifyModuleForm.jsp"></put-attribute>  
+	</definition>
 	
 	<definition extends="base.definition" name="displayStudent">  
        	<put-attribute name="title" value="Display Student"></put-attribute>  

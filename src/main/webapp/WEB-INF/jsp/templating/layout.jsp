@@ -77,7 +77,7 @@ tr:nth-child(even) {
       <li><a href="#">Lecturer</a></li>
       <li><a href="<%= request.getContextPath() %>/student/removeStudent">Student</a></li>
       <li><a href="#">Deferral</a></li>
-      <li><a href="#">Module</a></li>
+      <li><a href="<%= request.getContextPath() %>/module/deleteModule">Module</a></li>
  	</ul> 
  	</div>
  	<div data-role="collapsible">
@@ -107,10 +107,9 @@ tr:nth-child(even) {
       <li><a href="<%= request.getContextPath() %>/student/modifyStudent">Student</a></li>
       <li><a href="#">Deferral</a></li>
       <li><a href="<%= request.getContextPath() %>/module/modifyModule">Module</a></li>
- 	</ul>     
+	</ul>     
   </div>
-  
-  </div>  
+</div>  
 
 <a href="#pageone" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left">Close Menu</a>
 </div>
