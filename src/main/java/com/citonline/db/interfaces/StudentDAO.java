@@ -33,6 +33,9 @@ public interface StudentDAO {
 	
 	public List<StudentImpl> listStudents();   
 	
+	public void updateStudent(Integer id, String firstName, String lastName, 
+			String studentNumber, String email, String phoneNumber, String addressLine1, String addressLine2);
+	
 	public void updateStudentEmail(String studentNumber, String email);
 	
 	public void updateStudentEmail(Integer id, String email);
