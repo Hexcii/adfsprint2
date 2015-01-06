@@ -5,7 +5,6 @@
 <table data-role="table" class="ui-responsive" data-mode="columntoggle" id="studentTable">
 	<thead>
     	<tr>
-		<!-- 	<th data-priority="9">Image </th> -->
 			<th data-priority="1">Student ID</th>
 			<th data-priority="2">First Name</th>
 			<th data-priority="3">Last Name</th>
@@ -19,7 +18,7 @@
   
   	<tbody>
     	<tr>
-	 		<td>${student.id}</td>
+	 		<td>${id}</td>
 			<td>${student.firstName}</td>
 			<td>${student.lastName}</td>          
 			<td>${student.studentNumber}</td>          

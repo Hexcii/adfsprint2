@@ -1,8 +1,5 @@
 package com.citonline.controllers;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.citonline.db.interfaces.StudentDAO;
-import com.citonline.exceptions.ImageUploadException;
 import com.citonline.interfaces.impl.StudentImpl;
 
 
@@ -47,14 +41,16 @@ public class StudentController {
 		    return "displayStudents";
 		}
 	
-	@RequestMapping(value="/list/{studentNumber}", method=RequestMethod.GET)
-	 public String getStudentByStudentNumber(@PathVariable String studentNumber,
+	@RequestMapping(value="/displayStudent", method=RequestMethod.GET)
+	 public String getStudentByStudentNumber(ModelMap model){
+	    return "displayStudent";
+	}
+	
+	@RequestMapping(value="/displayStudent/id/{id}", method=RequestMethod.GET)
+	 public String displayStudentByStudentNumber(@PathVariable int id,
 			 ModelMap model){
-		StudentImpl student=studentDAO.getStudent(studentNumber);
-		List<StudentImpl> listStudents = new ArrayList<StudentImpl>();
-		listStudents.add(student);
-		
-		model.addAttribute("students", listStudents);
+		StudentImpl student=studentDAO.getStudent(id);		
+		model.addAttribute("student", student);
 	    return "displayStudent";
 	}
 	
@@ -66,74 +62,26 @@ public class StudentController {
 
 
 	@RequestMapping(value = "/addNewStudent", method = RequestMethod.POST)
-	public String displayStudent(@ModelAttribute("student") @Valid StudentImpl student,
-		/*	@RequestParam("file") MultipartFile file,*/
+	public String displayAddedStudent(@ModelAttribute("student") @Valid StudentImpl student,
 			BindingResult result, ModelMap model) {
 		
 		if(result.hasErrors())
 			return "addNewStudent"; 
-		
-/*		try {
-			 if (!file.isEmpty()) {
-				 
-				 validateImage(file);*/
-				 
+				 int id;
 		            try {   		            	
-		            	model.addAttribute("firstName", student.getFirstName());
-			        	model.addAttribute("lastName", student.getLastName());
-			        	model.addAttribute("studentNumber", student.getStudentNumber());
-			        	model.addAttribute("email", student.getEmail());
-			        	model.addAttribute("phoneNumber", student.getPhoneNumber());
-			        	model.addAttribute("addressLine1", student.getAddressLine1());
-			        	model.addAttribute("addressLine2", student.getAddressLine2());
-			        	int id= studentDAO.createStudentGetID(student.getFirstName(), student.getLastName(), student.getStudentNumber(),
+			        	id= studentDAO.createStudentGetID(student.getFirstName(), student.getLastName(), student.getStudentNumber(),
 			        			student.getEmail(),student.getPhoneNumber(),student.getAddressLine1(),student.getAddressLine2());
 			        	model.addAttribute("id", id);
-			        	model.addAttribute("id_student", id);
-		               /* byte[] bytes = file.getBytes(); 
-		                File dir = new File(servletContext.getRealPath("/")+"/resources/images");
-		                System.out.println(dir.getAbsolutePath());
-		                
-		                if (!dir.exists())
-		                    dir.mkdirs();		                
-		               		 
-		                // Create the file on server
-		                String fileLocation=dir.getAbsolutePath()
-		                        + File.separator + Integer.toString(id)+".jpg";;
-		                
-		                File serverFile = new File(fileLocation);
-		                
-		                BufferedOutputStream stream = new BufferedOutputStream(
-		                        new FileOutputStream(serverFile));
-		                
-		                stream.write(bytes);
-		                stream.close();		*/  
-		    			
+
 		            } catch (Exception e) {
 		            	model.addAttribute("message", "Creation of student failed, "+e.getLocalizedMessage());
-						return "displayError"; 
+						return "errorStudent"; 
 
 		            }
-			/* }else{
-				 model.addAttribute("message", "You failed to upload " + file.getOriginalFilename() + " because the file was empty.");
-				 return "displayError"; 
-			 }
-			} catch(ImageUploadException e){
-				 model.addAttribute("message", "Creation of student failed. The system only supports JPEGs.");
-				 return "displayError"; 
-			
-			}		*/
-		
+		           model.addAttribute(student);
 		return "displayStudent";
 
 	}
-	
-/*	private void validateImage(MultipartFile image){
-		if(!image.getContentType().equals("image/jpeg")){
-			throw new ImageUploadException("OnlyJPGimagesaccepted");
-		}
-	}*/
-	/*
 	
 	@RequestMapping(value="/modify", method = RequestMethod.GET)
 	public String modify(ModelMap model) {
@@ -149,6 +97,8 @@ public class StudentController {
 		model.addAttribute("student", studentModify);
 		return "modifyStudentForm";
 	}
+	
+	/*
 	
 	@RequestMapping(value ="/modify/firstName/{firstName}/lastName/{lastName}", method = RequestMethod.GET)
 	public String modifyStudentByFirstNameLastName(@PathVariable String firstName, @PathVariable String lastName,
@@ -232,14 +182,14 @@ public class StudentController {
 	*/
 	
 	@RequestMapping(value = "/removeStudent", method = RequestMethod.GET) 
-	public String deleteSongwriter(ModelMap model) {   
+	public String deleteStudent(ModelMap model) {   
 		List<StudentImpl> listStudents=studentDAO.listStudents();
 		model.addAttribute("students", listStudents);		
 		return "removeStudent";
 	} 
 	
 	@RequestMapping(value ="/removeStudent/id/{id}", method = RequestMethod.GET) 
-	public String deleteSongwriterbyId(@PathVariable int id, ModelMap model) { 
+	public String deleteStudentById(@PathVariable int id, ModelMap model) { 
 		StudentImpl studentDelete=studentDAO.getStudent(id);
 		studentDAO.deleteStudent(id);
 		model.addAttribute("message", "Student " + studentDelete.getFirstName() + " " +
