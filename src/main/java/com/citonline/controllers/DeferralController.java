@@ -87,30 +87,60 @@ public class DeferralController
 	}
 	
 	@RequestMapping(value="/deleteDeferral", method=RequestMethod.GET)
-	public String delete(ModelMap model){
+	public ModelAndView delete(ModelMap model){
 		ArrayList<Deferral> deferrals = new ArrayList<Deferral>();
-	
-		ArrayList<Student> students = new ArrayList<Student>();
 		ArrayList<Deferralwrapper> deferralw = new ArrayList<Deferralwrapper>();
-		deferralwrapper = new Deferralwrapper();
 		deferrals = deferralDAO.getAllDefferals();
 		StudentImpl student;
-		//for (Deferral d: deferrals)
+		for (Deferral d: deferrals)
+		{
+			student = studentdao.getStudent(d.getId_student());
+			
+			deferralwrapper = new Deferralwrapper();
+			
+			deferralwrapper.setFirstName(student.getFirstName());
+			deferralwrapper.setLastName(student.getLastName());
+			deferralwrapper.setStudentNumber(student.getStudentNumber());
+			deferralwrapper.setProgramDeferred(d.getProgramDeferred());
+			deferralwrapper.setDeferral_date(d.getDeferral_date());
+			deferralwrapper.setId_program(d.getId_program());
+			deferralwrapper.setId(d.getId());
+			
+			deferralw.add(deferralwrapper);
+		}
+		
+	//	for (Deferralwrapper dw: deferralw)
 		//{
-			//if(d.getId_deferral_status() != 3)
-			//{
-				//student = studentdao.getStudent(d.getId_student());
-				//deferralwrapper.setFirstName(student.getFirstName());
-				//deferralwrapper.setLastName(student.getLastName());
-				//deferralwrapper.setStudentNumber(student.getStudentNumber());
-				//deferralwrapper.setProgramDeferred(d.getProgramDeferred());
-				//deferralwrapper.setDeferral_date(d.getDeferral_date());
-				//deferralwrapper.setId(d.getId());
-			//}
+			//System.out.println("DW"+dw.getId());
 		//}
-		model.addAttribute("message", "Deletingshit");
-		//model.addAttribute("deferralws", deferralwrapper);
-	    return "deleteDeferral";
+		return new ModelAndView("deleteDeferral", "deferralws", deferralw);
+	}
+	@RequestMapping(value ="/deleteDeferral/id/{id}", method = RequestMethod.GET) 
+	public String deleteStudentById(@PathVariable int id, ModelMap model) { 
+		deferralDAO.deleteDeferral(id);
+		model.addAttribute("message", "Deferral deleted from the system");
+		ArrayList<Deferral> deferrals = new ArrayList<Deferral>();
+		ArrayList<Deferralwrapper> deferralw = new ArrayList<Deferralwrapper>();
+		deferrals = deferralDAO.getAllDefferals();
+		StudentImpl student;
+		for (Deferral d: deferrals)
+		{
+			student = studentdao.getStudent(d.getId_student());
+			
+			deferralwrapper = new Deferralwrapper();
+			
+			deferralwrapper.setFirstName(student.getFirstName());
+			deferralwrapper.setLastName(student.getLastName());
+			deferralwrapper.setStudentNumber(student.getStudentNumber());
+			deferralwrapper.setProgramDeferred(d.getProgramDeferred());
+			deferralwrapper.setId_program(d.getId_program());
+			deferralwrapper.setDeferral_date(d.getDeferral_date());
+			deferralwrapper.setId(d.getId());
+			
+			deferralw.add(deferralwrapper);
+		}
+		model.addAttribute("deferralws", deferralw);
+		return "deleteDeferral";
 	}
 	
 	@RequestMapping(value = "/addNewDeferral", method = RequestMethod.GET) 
@@ -136,9 +166,37 @@ public class DeferralController
 	}
 	
 	@RequestMapping(value = "/modifyDeferral", method = RequestMethod.GET) 
-	public String updateDeferralStatusByName()
+	public String updateDeferralStatusByName(ModelMap model)
 	{
-		//deferralDAO.
+		ArrayList<Deferral> deferrals = new ArrayList<Deferral>();
+		ArrayList<Deferralwrapper> deferralw = new ArrayList<Deferralwrapper>();
+		deferrals = deferralDAO.getAllDefferals();
+		StudentImpl student;
+		for (Deferral d: deferrals)
+		{
+			student = studentdao.getStudent(d.getId_student());
+			
+			deferralwrapper = new Deferralwrapper();
+			
+			deferralwrapper.setFirstName(student.getFirstName());
+			deferralwrapper.setLastName(student.getLastName());
+			deferralwrapper.setStudentNumber(student.getStudentNumber());
+			deferralwrapper.setProgramDeferred(d.getProgramDeferred());
+			deferralwrapper.setId_program(d.getId_program());
+			deferralwrapper.setDeferral_date(d.getDeferral_date());
+			deferralwrapper.setId(d.getId());
+			
+			deferralw.add(deferralwrapper);
+		}
+		model.addAttribute("message", "modify");
+		model.addAttribute("deferrals", deferralw);
 		return "modifyDeferral";
 	}
+	@RequestMapping(value = "/modifyDeferral/id/{id}", method = RequestMethod.GET) 
+	public String modifySongwriter(@PathVariable int id, ModelMap model) { 
+		Deferral deferralModify=deferralDAO.getDeferralById(id);
+		model.addAttribute("message", "Deferral with id "+ id +" can now be modified");
+		model.addAttribute("deferral", deferralModify);
+		return "modifyForm";	
+		}
 }
