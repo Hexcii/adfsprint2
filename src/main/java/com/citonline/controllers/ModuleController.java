@@ -2,9 +2,12 @@ package com.citonline.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +18,7 @@ import com.citonline.db.interfaces.ModuleDAO;
 import com.citonline.domain.Module;
 import com.citonline.interfaces.impl.LecturerImpl;
 import com.citonline.interfaces.impl.ModuleImpl;
+import com.citonline.interfaces.impl.StudentImpl;
 /**
  * 
  * @author tim wallace
@@ -48,26 +52,50 @@ public class ModuleController
 	}
 	
 	@RequestMapping(value = "/addModule", method = RequestMethod.GET) 
-	public ModelAndView addModule() {                                
-		return new ModelAndView("addModule", "module", new Module());
+	public String addModule(ModelMap model) {                                  
+		model.addAttribute("module", new ModuleImpl());
+		return "addModule";
 	} 
+
+//	@RequestMapping(value = "/addModule", method = RequestMethod.POST)
+//	public String display(@ModelAttribute("module") Module module, ModelMap model) {
+//
+//		model.addAttribute("id", module.getId());
+//		model.addAttribute("code", module.getCode());
+//		model.addAttribute("crn", module.getCrn());
+//		model.addAttribute("name", module.getName());
+//		model.addAttribute("semester", module.getSemester());	
+//		
+//		try {
+//			moduleDAO.createModule(module.getCode(), module.getCrn(), module.getName(), module.getSemester());
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		return "displayModule";
+//	}
 	
 	@RequestMapping(value = "/addModule", method = RequestMethod.POST)
-	public String display(@ModelAttribute("module") Module module, ModelMap model) {
-
-		model.addAttribute("id", module.getId());
-		model.addAttribute("code", module.getCode());
-		model.addAttribute("crn", module.getCrn());
-		model.addAttribute("name", module.getName());
-		model.addAttribute("semester", module.getSemester());	
+	public String displayModule(@ModelAttribute("module") @Valid ModuleImpl module,
+			BindingResult result, ModelMap model) {
 		
-		try {
-			moduleDAO.createModule(module.getCode(), module.getCrn(), module.getName(), module.getSemester());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+		if(result.hasErrors())
+			return "addModule"; 
+				 
+		            try {   		            	
+		        		model.addAttribute("id", module.getId());
+		        		model.addAttribute("code", module.getCode());
+		        		model.addAttribute("crn", module.getCrn());
+		        		model.addAttribute("name", module.getName());
+		        		model.addAttribute("semester", module.getSemester());
+		    			
+		            } catch (Exception e) {
+		            	model.addAttribute("message", "Module adding failed, "+e.getLocalizedMessage());
+						return "displayError"; 
+		            }
+		
 		return "displayModule";
+
 	}
 	@RequestMapping(value = "/modifyModule", method = RequestMethod.GET) 
 	public String updateModule(ModelMap model)
