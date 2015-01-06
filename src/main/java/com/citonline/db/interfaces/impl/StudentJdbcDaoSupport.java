@@ -49,7 +49,7 @@ public class StudentJdbcDaoSupport extends JdbcDaoSupport implements StudentDAO 
 			String studentNumber, String email, String phoneNumber,
 			String addressLine1, String addressLine2) {
 		
-		String SQL = "INSERT INTO Student (firstName, lastName, studentNumber, "
+		String SQL = "INSERT INTO student (firstName, lastName, studentNumber, "
 				+ "email, phoneNumber,"
 				+ "addressLine1, addressLine2) "
 				+ "VALUES(?, ?, ?, ?, ?, ?, ?)";
@@ -68,7 +68,7 @@ public class StudentJdbcDaoSupport extends JdbcDaoSupport implements StudentDAO 
 			String studentNumber, String email, String phoneNumber,
 			String addressLine1, String addressLine2) {
 
-		String SQL = "INSERT INTO Student (firstName, lastName, studentNumber, "
+		String SQL = "INSERT INTO student (firstName, lastName, studentNumber, "
 				+ "email, phoneNumber,"
 				+ "addressLine1, addressLine2) "
 				+ "VALUES(?, ?, ?, ?, ?, ?, ?)";
@@ -94,7 +94,7 @@ public class StudentJdbcDaoSupport extends JdbcDaoSupport implements StudentDAO 
 	@Override
 	@Transactional
 	public void deleteStudent(Integer id) {
-		String SQL = "delete from Student where id_student = ?";
+		String SQL = "delete from student where id_student = ?";
 		getJdbcTemplate().update(SQL, new Object[] {id});
 		System.out.println("Deleted student where id_student = " + id );		
 	}
@@ -102,7 +102,7 @@ public class StudentJdbcDaoSupport extends JdbcDaoSupport implements StudentDAO 
 	@Override
 	@Transactional
 	public void deleteStudent(String studentNumber) {
-		String SQL = "delete from Student where studentNumber = ?";
+		String SQL = "delete from student where studentNumber = ?";
 		getJdbcTemplate().update(SQL, new Object[] {studentNumber});
 		System.out.println("Deleted student where studentNumber = " + studentNumber );		
 	}
@@ -110,7 +110,7 @@ public class StudentJdbcDaoSupport extends JdbcDaoSupport implements StudentDAO 
 	@Override
 	@Transactional
 	public StudentImpl getStudent(Integer id) {
-		String SQL = "select * from Student where id_student = ?";
+		String SQL = "select * from student where id_student = ?";
 		StudentImpl student = (StudentImpl) getJdbcTemplate().queryForObject(SQL, 
 						new Object[]{id}, new StudentMapper());
 		
@@ -120,7 +120,7 @@ public class StudentJdbcDaoSupport extends JdbcDaoSupport implements StudentDAO 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public StudentImpl getStudent(String studentNumber) {
-		String SQL = "select * from Student where studentNumber = ?";
+		String SQL = "select * from student where studentNumber = ?";
 		StudentImpl student = (StudentImpl) getJdbcTemplate().queryForObject(SQL, 
 						new Object[]{studentNumber}, new StudentMapper());
 		
