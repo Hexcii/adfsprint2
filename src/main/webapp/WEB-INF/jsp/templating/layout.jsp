@@ -1,6 +1,5 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 
- 
 <html>  
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -76,16 +75,16 @@ tr:nth-child(even) {
     <h1 data-icon="delete">Remove</h1>
     <ul data-role="listview" data-inset="true">
       <li><a href="#">Lecturer</a></li>
-      <li><a href="#">Student</a></li>
+      <li><a href="<%= request.getContextPath() %>/student/removeStudent">Student</a></li>
       <li><a href="#">Deferral</a></li>
       <li><a href="#">Module</a></li>
  	</ul> 
  	</div>
  	<div data-role="collapsible">
-    <h1 data-icon="search">list</h1>
+    <h1 data-icon="search">Display Single</h1>
     <ul data-role="listview" data-inset="true">
       <li><a href="<%= request.getContextPath() %>/lecturer/listall">Lecturer</a></li>
-      <li><a href="#">Student</a></li>
+      <li><a href="<%= request.getContextPath() %>/student/displayStudent">Student</a></li>
       <li><a href="#">Deferral</a></li>
       <li><a href="<%= request.getContextPath() %>/module/displayModule">>Module</a></li>
  	</ul>     
@@ -101,11 +100,11 @@ tr:nth-child(even) {
  	</ul>     
   </div>
   
-  	<div data-role="collapsible">
+  <div data-role="collapsible">
     <h1 data-icon="star">Modify</h1>
     <ul data-role="listview" data-inset="true">
       <li><a href="#">Lecturer</a></li>
-      <li><a href="#">Student</a></li>
+      <li><a href="<%= request.getContextPath() %>/student/modifyStudent">Student</a></li>
       <li><a href="#">Deferral</a></li>
       <li><a href="#">Module</a></li>
  	</ul>     

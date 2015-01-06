@@ -26,6 +26,7 @@
 			<td>${student.phoneNumber}</td>          
 			<td>${student.addressLine1}</td>
 			<td>${student.addressLine2}</td>     
+			<td></td>
 		</tr>
 		</c:forEach>
   </tbody>

@@ -1,7 +1,6 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
-
-<h2>${message}</h2>
-
+${message}
+<c:if test="${not empty students}">
 <table data-role="table" class="ui-responsive" data-mode="columntoggle" id="studentTable">
 	<thead>
     	<tr>
@@ -17,15 +16,27 @@
 	</thead>
   
   	<tbody>
+  		<c:forEach var="student" items="${students}" varStatus="status">
     	<tr>
-	 		<td>${id}</td>
+	 		<td>${student.id}</td>
 			<td>${student.firstName}</td>
 			<td>${student.lastName}</td>          
 			<td>${student.studentNumber}</td>          
 			<td>${student.email}</td>          
 			<td>${student.phoneNumber}</td>          
 			<td>${student.addressLine1}</td>
-			<td>${student.addressLine2}</td>     
+			<td>${student.addressLine2}</td>   
+			<td><a href="<%= request.getContextPath() %>/student/removeStudent/id/${status.current.id}"
+						class="ui-btn">Delete</a></td>  
 		</tr>
-  </tbody> 
- </table>  
+		</c:forEach>
+  </tbody>
+
+</table>
+	</c:if>
+	
+	<c:if test="${empty students}">
+	<div class="notification warning">
+		No students.
+	</div>
+	</c:if>
