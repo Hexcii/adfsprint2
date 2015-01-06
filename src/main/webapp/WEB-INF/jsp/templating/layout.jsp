@@ -68,6 +68,7 @@ tr:nth-child(even) {
       <li><a href="<%= request.getContextPath() %>/lecturer/addNew">Lecturer</a></li>
       <li><a href="<%= request.getContextPath() %>/student/addNewStudent">Student</a></li>
       <li><a href="<%= request.getContextPath() %>/deferral/addNewDeferral">Deferral</a></li>
+      <li><a href="<%= request.getContextPath() %>/deferral/addDeferralAndFile">Deferral with File</a></li>
       <li><a href="<%= request.getContextPath() %>/module/addModule">Module</a></li>
  	</ul>
   </div>

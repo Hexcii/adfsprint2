@@ -1,6 +1,8 @@
 package com.citonline.domain;
 
 import java.util.ArrayList;
+
+import org.springframework.web.multipart.MultipartFile;
 /**
  * 
  * @author peter halligan
@@ -17,6 +19,7 @@ public class Deferral
 	boolean programDeferred;
 	int id_program;
 	int id_deferral_status;
+	private MultipartFile file;
 	
 	/**
 	 * costructor with id for row mapper
@@ -111,6 +114,14 @@ public class Deferral
 
 	public void setId(int id_deferral) {
 		this.id= id_deferral;
+	}
+	
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 	
 }
