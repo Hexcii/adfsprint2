@@ -11,9 +11,9 @@
   </thead>
   <tbody>
     <tr>
-      <td>${id_student}</td>
-      <td>${id_program}</td>
-      <td>${program_deferred}</td>
-      <td>${today}</td>          
+      <td>${deferral.id_student}</td>
+      <td>${deferral.id_program}</td>
+      <td>${deferral.programDeferred}</td>
+      <td>${deferral.deferral_date}</td>          
     </tr>
   </tbody>               
