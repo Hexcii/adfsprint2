@@ -133,6 +133,6 @@
 	
 	<definition extends="base.definition" name="modifyStudent">  
         <put-attribute name="title" value="Modify Student"></put-attribute>  
-        <put-attribute name="body" value="/WEB-INF/jsp/deferral/modifyStudent.jsp"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/student/modifyStudent.jsp"></put-attribute>  
 	</definition>
 </tiles-definitions>

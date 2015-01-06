@@ -83,14 +83,14 @@ public class StudentController {
 
 	}
 	
-	@RequestMapping(value="/modify", method = RequestMethod.GET)
+	@RequestMapping(value="/modifyStudent", method = RequestMethod.GET)
 	public String modify(ModelMap model) {
 		List<StudentImpl> students=studentDAO.listStudents();
 		model.addAttribute("students", students);
 		return "modifyStudent";
 	}
 	
-	@RequestMapping(value ="/modify/id/{id}", method = RequestMethod.GET)
+	@RequestMapping(value ="/modifyStudent/id/{id}", method = RequestMethod.GET)
 	public String modifyStudentByID(@PathVariable int id, ModelMap model) {
 		StudentImpl studentModify=studentDAO.getStudent(id);
 		model.addAttribute("message", "Student with id "+ id +" can now be modified");
