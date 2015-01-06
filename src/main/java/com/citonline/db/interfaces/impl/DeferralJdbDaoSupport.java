@@ -2,6 +2,7 @@ package com.citonline.db.interfaces.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,11 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
+import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
+import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -270,5 +275,30 @@ public class DeferralJdbDaoSupport extends JdbcDaoSupport implements
 				.query(SQL, new Object[] { id},
 						new DeferralMapper());
 		return deferral;
+	}
+
+	@Transactional
+	public int createDeferralGetId(String date, int id_program, int id_student,boolean program_deferred, int status) {
+
+		String SQL = "INSERT INTO  deferral(deferral_date, id_program, id_student, program_deferred, id_deferral_status)"
+				+ " VALUES(?, ?, ?, ?, ?)";
+
+		getJdbcTemplate().update(
+				SQL,
+				new Object[] { date, id_program, id_student, program_deferred,	status });
+		
+		Object[] params=new Object[]{ date, id_program,id_student,program_deferred,status};
+		PreparedStatementCreatorFactory psc=new PreparedStatementCreatorFactory(SQL);
+		psc.addParameter(new SqlParameter("deferral_date", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("id_program", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("id_student", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("program_deferred", Types.BOOLEAN));
+		psc.addParameter(new SqlParameter("id_deferral_status", Types.VARCHAR));
+		KeyHolder holder = new GeneratedKeyHolder();
+		getJdbcTemplate().update(psc.newPreparedStatementCreator(params), holder);
+
+		System.out.println("holder:"+holder.getKey().toString());
+		String key=holder.getKey().toString();
+		return Integer.parseInt(key);
 	}
 }
