@@ -21,6 +21,8 @@ public class ModuleImpl  extends Module implements ModuleInt{
 	public ModuleImpl(int id, String code, String crn, String name, int semester) {
 		super(id, code, crn, name, semester);
 	}
+	
+	public ModuleImpl() {}
 
 	@Override
 	public Calendar moduleStart() {
