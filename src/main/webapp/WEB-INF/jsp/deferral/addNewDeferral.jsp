@@ -20,7 +20,6 @@
  <form:errors path="id_program" cssClass="error" class="notification error" style="display:block"></form:errors>
  </div>
  
- 
  <div data-role-="fieldcontain">
  <fieldset data-role="controlgroup">
  <form:checkbox path="programDeferred"  label="Deferring whole program"/>

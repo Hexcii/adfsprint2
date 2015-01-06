@@ -1,18 +1,27 @@
 package com.citonline.controllers;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.citonline.db.interfaces.DeferralDAO;
@@ -20,7 +29,8 @@ import com.citonline.db.interfaces.ModuleDAO;
 import com.citonline.db.interfaces.StudentDAO;
 import com.citonline.domain.Deferral;
 import com.citonline.domain.Deferralwrapper;
-import com.citonline.domain.Student;
+import com.citonline.exceptions.FileTypeException;
+import com.citonline.exceptions.ImageUploadException;
 import com.citonline.interfaces.impl.StudentImpl;
 /**
  * 
@@ -40,6 +50,9 @@ public class DeferralController
 	StudentDAO studentdao;
 	@Autowired
 	ModuleDAO moduledao;
+	@Autowired
+    private ServletContext servletContext;
+
 	
 	Deferralwrapper deferralwrapper;
 	//done
@@ -149,7 +162,7 @@ public class DeferralController
 	} 
 	
 	@RequestMapping(value = "/addNewDeferral", method = RequestMethod.POST)
-	public String displaySongwriter(@ModelAttribute("deferral") Deferral deferral, ModelMap model) {
+	public String addNewDeferral(@ModelAttribute("deferral") Deferral deferral, ModelMap model) {
 		 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		   Date date = new Date();
 		   String today = dateFormat.format(date).toString();	
@@ -199,4 +212,86 @@ public class DeferralController
 		model.addAttribute("deferral", deferralModify);
 		return "modifyForm";	
 		}
+	
+	@RequestMapping(value = "/addDeferralAndFile", method = RequestMethod.GET) 
+	public ModelAndView addDeferralAndFile() {    
+		return new ModelAndView("addDeferralAndFile", "deferral", new Deferral());
+	}
+	
+	@RequestMapping(value = "/addDeferralAndFile", method = RequestMethod.POST)
+	public String addDeferralWithFile(@ModelAttribute("deferral") @Valid Deferral deferral,
+			@RequestParam("file") MultipartFile file,
+			BindingResult result, ModelMap model) {
+		
+		 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		 Date date = new Date();
+		 String today = dateFormat.format(date).toString();	
+		   
+		if(result.hasErrors())
+			return "addDeferralAndFile"; 
+		
+		try {
+			 if (!file.isEmpty()) {
+				 
+				 validateImage(file);
+				 
+		            try {    
+		    			int id = deferralDAO.createDeferralGetId(today, deferral.getId_program(), deferral.getId_student(), deferral.getProgramDeferred(), 1);
+		            	
+		                byte[] bytes = file.getBytes(); 
+		                File dir = new File(servletContext.getRealPath("/")+"/resources/images");
+		                System.out.println("1:"+dir.getAbsolutePath());
+		                
+		                if (!dir.exists())
+		                    dir.mkdirs();  
+		                
+		                String extension = "";
+		                String fileName = file.getOriginalFilename();
+		                System.out.println("FN:"+fileName);
+		                int i = fileName.lastIndexOf('.');
+		                int p = Math.max(fileName.lastIndexOf('/'), fileName.lastIndexOf('\\'));
+
+		                if (i > p) {
+		                    extension = fileName.substring(i+1);
+		                }
+		               		 
+		                // Create the file on server
+		                String fileLocation=dir.getAbsolutePath()
+		                        + File.separator + Integer.toString(id)+"."+extension;
+		                System.out.println("2:"+fileLocation);
+		                File serverFile = new File(fileLocation);
+		                
+		                BufferedOutputStream stream = new BufferedOutputStream(
+		                        new FileOutputStream(serverFile));
+		                
+		                stream.write(bytes);
+		                stream.close();		  
+		    			
+		            } catch (Exception e) {
+		            	model.addAttribute("message", "Creation of deferral failed, "+e.getLocalizedMessage());
+						return "errorDeferral"; 
+
+		            }
+			 }else{
+				 model.addAttribute("message", "You failed to upload " + file.getOriginalFilename() + " because the file was empty.");
+				 return "errorDeferral"; 
+			 }
+			} catch(ImageUploadException e){
+				 model.addAttribute("message", "Creation of student failed. The system only supports JPEGs.");
+				 return "errorDeferral"; 
+			
+			}		
+		return "displayDeferral";
+	}
+	
+	private void validateImage(MultipartFile file){
+		System.out.println("FileType:"+file.getContentType());
+		if(!file.getContentType().equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document") &&
+				!file.getContentType().equals("application/msword") &&
+				!file.getContentType().equals("application/pdf") &&
+				!file.getContentType().equals("image/jpeg") &&
+				!file.getContentType().equals("image/gif")){
+			throw new FileTypeException("FileTypeError");
+		}
+	}
 }

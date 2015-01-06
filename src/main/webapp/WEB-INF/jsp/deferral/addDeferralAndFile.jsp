@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
 
-<form:form method="POST" enctype="multipart/form-data" data-ajax="false" action="addNewDeferral" modelAttribute="deferral">
+<form:form method="POST" enctype="multipart/form-data" data-ajax="false" action="addDeferralAndFile" modelAttribute="deferral">
 
 <form:errors path="*" cssClass="errorblock" element="div" />
 
@@ -20,6 +20,10 @@
  <form:errors path="id_program" cssClass="error" class="notification error" style="display:block"></form:errors>
  </div>
  
+<div class="ui-field-contain">
+<form:label path="file">File Upload</form:label>
+<form:input path="file" type="file"/> 
+</div>  
  
  <div data-role-="fieldcontain">
  <fieldset data-role="controlgroup">
