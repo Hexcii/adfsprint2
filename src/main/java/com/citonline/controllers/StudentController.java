@@ -90,19 +90,31 @@ public class StudentController {
 		return "modifyStudent";
 	}
 	
+	@RequestMapping(value ="/modifyStudentForm/id/{id}", method = RequestMethod.GET)
+	public String modifyStudentByID(@PathVariable int id, ModelMap model) {
+		StudentImpl studentModify=studentDAO.getStudent(id);
+		model.addAttribute("message", "Student with id "+ id +" can now be modified");
+		model.addAttribute("student", studentModify);
+		return "modifyStudentForm";
+	}
+
 	@RequestMapping(value ="/modifyStudentForm/id/{id}/firstName/{firstName}"
 			+ "/lastName/{lastName}/studentNumber/{studentNumber}/email/{email}"
 			+ "/phoneNumber/{phoneNumber}/addressLine1/{addressLine1}/addressLine2/{addressLine2}", method = RequestMethod.GET)
 	public String modifyStudentByID(@PathVariable int id,@PathVariable String firstName,
 			@PathVariable String lastName,@PathVariable String studentNumber,@PathVariable String email,
 			@PathVariable String phoneNumber,@PathVariable String addressLine1,@PathVariable String addressLine2, ModelMap model) {
+		
+		studentDAO.updateStudent(id, firstName, lastName, studentNumber, email, phoneNumber, addressLine1, addressLine2);
+		
 		StudentImpl studentModify=studentDAO.getStudent(id);
-		model.addAttribute("message", "Student with id "+ id +" can now be modified");
+		model.addAttribute("message", "Student " + studentModify.getFirstName() + " " 
+				+ studentModify.getLastName() + " has beed successfully updated");
+		
 		model.addAttribute("student", studentModify);
-		return "modifyStudentForm";
+		return "displayStudent";
 	}
-	//http://localhost:8080/adfsprint2/student/modifyForm/id/37/firstName/Declan/lastName/Murphy
-	///studentNumber/R00058443/email/Murphy/phoneNumber/0876727881/addressLine1/Tramore/addressLine2/Waterford
+	
 	@RequestMapping(value = "/removeStudent", method = RequestMethod.GET) 
 	public String deleteStudent(ModelMap model) {
 		List<StudentImpl> listStudents=studentDAO.listStudents();

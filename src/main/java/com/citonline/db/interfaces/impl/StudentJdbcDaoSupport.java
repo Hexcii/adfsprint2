@@ -135,6 +135,18 @@ public class StudentJdbcDaoSupport extends JdbcDaoSupport implements StudentDAO 
 						new StudentMapper());
 		return studentList;
 	}
+	
+	@Override
+	@Transactional
+	public void updateStudent(Integer id, String firstName, String lastName,String studentNumber, String email, 
+			String phoneNumber, String addressLine1, String addressLine2)	{
+		
+		String SQL = "update student set firstName= ?, lastName = ?, studentNumber = ?, email = ?,"
+				+ " phoneNumber = ?, addressLine1 = ?, addressLine2 = ? where id_student = ?";
+		getJdbcTemplate().update(SQL, new Object[] {firstName,lastName,studentNumber,email,phoneNumber,addressLine1,addressLine2,id});
+		System.out.println("Updated student email to " + email 
+				+ " where studentNumber = " + studentNumber );
+	}
 
 	@Override
 	@Transactional

@@ -14,7 +14,7 @@ $("#modify").click(function(){
 	var phoneNumber=$("#phoneNumber").val(); 
 	var addressLine1=$("#addressLine1").val(); 
 	var addressLine2=$("#addressLine2").val(); 
-	var url="/student/modifyForm/id/"+id+"/firstName/"+firstName+"/lastName/"+lastName+"/studentNumber/"+studentNumber+
+	var url="/student/modifyStudentForm/id/"+id+"/firstName/"+firstName+"/lastName/"+lastName+"/studentNumber/"+studentNumber+
 	"/email/"+email+"/phoneNumber/"+phoneNumber+"/addressLine1/"+addressLine1+"/addressLine2/"+addressLine2;
 	location.href="<%= request.getContextPath() %>"+url;
 });
