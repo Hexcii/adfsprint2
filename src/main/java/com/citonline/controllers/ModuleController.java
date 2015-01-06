@@ -116,5 +116,5 @@ public class ModuleController
 		model.addAttribute("modules", listModules);	
 		return "deleteModule";
 	}
-	
+
 }
