@@ -19,6 +19,7 @@ import com.citonline.db.interfaces.DeferralDAO;
 import com.citonline.db.interfaces.ModuleDAO;
 import com.citonline.db.interfaces.StudentDAO;
 import com.citonline.domain.Deferral;
+import com.citonline.domain.Deferralwrapper;
 import com.citonline.domain.Student;
 import com.citonline.interfaces.impl.StudentImpl;
 /**
@@ -40,6 +41,8 @@ public class DeferralController
 	@Autowired
 	ModuleDAO moduledao;
 	
+	Deferralwrapper deferralwrapper;
+	//done
 	@RequestMapping(value="/deferralStatus/{status}", method=RequestMethod.GET)
 	public String getlDefferalStatus(@PathVariable("status") int status, ModelMap model){
 		List<Deferral> deferrals=new ArrayList<Deferral>();
@@ -48,6 +51,7 @@ public class DeferralController
 		model.addAttribute("deferrals", deferrals);
 	    return "displayDeferrals";
 	}
+	//done
 	@RequestMapping(value="/deferralAll", method=RequestMethod.GET)
 	public String getAllDefferal(ModelMap model){
 		List<Deferral> deferrals=new ArrayList<Deferral>();
@@ -56,6 +60,7 @@ public class DeferralController
 		model.addAttribute("deferrals", deferrals);
 	    return "displayDeferrals";
 	}
+	//done
 	@RequestMapping(value="/listDeferralStatus/{status}", method=RequestMethod.GET)
 	public String getDefferalByStatusName(@PathVariable("status") String status, ModelMap model){
 		List<Deferral> deferrals=new ArrayList<Deferral>();
@@ -82,15 +87,29 @@ public class DeferralController
 	}
 	
 	@RequestMapping(value="/deleteDeferral", method=RequestMethod.GET)
-	//public String delete(@PathVariable int id, ModelMap model){
 	public String delete(ModelMap model){
-		//Deferral deferral = deferralDAO.getDeferralById(id);
-		//deferralDAO.deleteDeferral(id);
-		
-		//model.addAttribute("Delete", "Deferral with id "+ id);
-		//model.addAttribute("Student number", deferral.getStudent());
-		//model.addAttribute("program number", deferral.getProgram());
+		ArrayList<Deferral> deferrals = new ArrayList<Deferral>();
+	
+		ArrayList<Student> students = new ArrayList<Student>();
+		ArrayList<Deferralwrapper> deferralw = new ArrayList<Deferralwrapper>();
+		deferralwrapper = new Deferralwrapper();
+		deferrals = deferralDAO.getAllDefferals();
+		StudentImpl student;
+		//for (Deferral d: deferrals)
+		//{
+			//if(d.getId_deferral_status() != 3)
+			//{
+				//student = studentdao.getStudent(d.getId_student());
+				//deferralwrapper.setFirstName(student.getFirstName());
+				//deferralwrapper.setLastName(student.getLastName());
+				//deferralwrapper.setStudentNumber(student.getStudentNumber());
+				//deferralwrapper.setProgramDeferred(d.getProgramDeferred());
+				//deferralwrapper.setDeferral_date(d.getDeferral_date());
+				//deferralwrapper.setId(d.getId());
+			//}
+		//}
 		model.addAttribute("message", "Deletingshit");
+		//model.addAttribute("deferralws", deferralwrapper);
 	    return "deleteDeferral";
 	}
 	
@@ -101,28 +120,25 @@ public class DeferralController
 	
 	@RequestMapping(value = "/addNewDeferral", method = RequestMethod.POST)
 	public String displaySongwriter(@ModelAttribute("deferral") Deferral deferral, ModelMap model) {
-		 DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
+		 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		   Date date = new Date();
-		   String today = dateFormat.format(date).toString();
-	 
-
-		model.addAttribute("deferral_date", today);
-		model.addAttribute("id_student", deferral.getId_student());
-		model.addAttribute("id_program", deferral.getId_program());
-		model.addAttribute("program_deferred", deferral.getProgramDeferred());	
+		   String today = dateFormat.format(date).toString();	
 		
 		
 		try {
-			deferralDAO.createDeferral(today, deferral.getId_program(), deferral.getId_student(), false, 1);
+			deferralDAO.createDeferral(today, deferral.getId_program(), deferral.getId_student(), deferral.getProgramDeferred(), 1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		deferral.setDeferral_date(today);
 		model.addAttribute("deferral", deferral);
-		return "displayDeferrals";
+		return "displayDeferral";
 	}
+	
 	@RequestMapping(value = "/modifyDeferral", method = RequestMethod.GET) 
 	public String updateDeferralStatusByName()
 	{
+		//deferralDAO.
 		return "modifyDeferral";
 	}
 }
