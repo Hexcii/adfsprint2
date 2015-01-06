@@ -33,13 +33,33 @@ public class ModuleController
 	@Autowired
 	ModuleDAO moduleDAO;
 	
-	@RequestMapping(value="/displayModules", method=RequestMethod.GET)
-	public String getModule(@PathVariable("crn") String crn, ModelMap model){
-		Module module = moduleDAO.getModule(crn);
-		model.addAttribute("module", module);
-	    return "displayModules";
+//	@RequestMapping(value="/displayModules", method=RequestMethod.GET)
+//	public String getModule(@PathVariable("crn") String crn, ModelMap model){
+//		ModuleImpl module = moduleDAO.getModule(crn);
+//		model.addAttribute("module", module);
+//	    return "displayModules";
+//	}
+	
+	@RequestMapping(value={"/displayModules"}, method = RequestMethod.GET)
+	public String listAll(ModelMap model) {
+			
+			List<ModuleImpl> listModules = moduleDAO.listModules();
+			model.addAttribute("modules", listModules);
+		    return "displayModules";
 	}
 	
+	@RequestMapping(value="/displayModule", method=RequestMethod.GET)
+	 public String getModulebyCrn(ModelMap model){
+	    return "displayModule";
+	}
+	
+	@RequestMapping(value="/displayModule/crn/{crn}", method=RequestMethod.GET)
+	 public String displayModulebyCrn(@PathVariable String crn,
+			 ModelMap model){
+		ModuleImpl module=moduleDAO.getModule(crn);		
+		model.addAttribute("module", module);
+	    return "displayModule";
+	}	
 	@RequestMapping(value="/deleteModule", method=RequestMethod.GET)
 	//public String delete(@PathVariable String crn, ModelMap model){
 	public String deleteModule(ModelMap model){
@@ -56,7 +76,23 @@ public class ModuleController
 		model.addAttribute("module", new ModuleImpl());
 		return "addModule";
 	} 
-
+	
+	@RequestMapping(value = "/addModule", method = RequestMethod.POST)
+	public String displayModule(@ModelAttribute("module") @Valid ModuleImpl module,
+			BindingResult result, ModelMap model) {
+		
+		if(result.hasErrors())
+			return "addModule"; 
+		            try {   		            	
+			        	moduleDAO.createModule(module.getCode(), module.getCrn(), module.getName(), module.getSemester());
+		            } catch (Exception e) {
+		            	model.addAttribute("message", "Creation of module failed, "+e.getLocalizedMessage());
+						return "errorModule"; 
+		            }
+		           model.addAttribute(module);
+		return "displayModule";
+	}
+	
 //	@RequestMapping(value = "/addModule", method = RequestMethod.POST)
 //	public String display(@ModelAttribute("module") Module module, ModelMap model) {
 //
@@ -75,32 +111,10 @@ public class ModuleController
 //		return "displayModule";
 //	}
 	
-	@RequestMapping(value = "/addModule", method = RequestMethod.POST)
-	public String displayModule(@ModelAttribute("module") @Valid ModuleImpl module,
-			BindingResult result, ModelMap model) {
-		
-		if(result.hasErrors())
-			return "addModule"; 
-				 
-		            try {   		            	
-		        		model.addAttribute("id", module.getId());
-		        		model.addAttribute("code", module.getCode());
-		        		model.addAttribute("crn", module.getCrn());
-		        		model.addAttribute("name", module.getName());
-		        		model.addAttribute("semester", module.getSemester());
-		    			
-		            } catch (Exception e) {
-		            	model.addAttribute("message", "Module adding failed, "+e.getLocalizedMessage());
-						return "displayError"; 
-		            }
-		
-		return "displayModule";
-
-	}
 	@RequestMapping(value = "/modifyModule", method = RequestMethod.GET) 
 	public String updateModule(ModelMap model)
 	{
-		List<Module> modules = moduleDAO.listModules();
+		List<ModuleImpl> modules = moduleDAO.listModules();
 		model.addAttribute("modules", modules);
 		return "modifyModule";
 	}

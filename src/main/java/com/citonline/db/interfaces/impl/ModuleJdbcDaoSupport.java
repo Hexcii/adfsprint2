@@ -62,9 +62,9 @@ import com.citonline.interfaces.impl.StudentImpl;
 
 	@Override
 	@Transactional
-	public Module getModule(String crn) {
+	public ModuleImpl getModule(String crn) {
 		String SQL = "select * from Module where crn = ?";
-		Module module = (Module) getJdbcTemplate().queryForObject(SQL, 
+		ModuleImpl module = (ModuleImpl) getJdbcTemplate().queryForObject(SQL, 
 						new Object[]{crn}, new ModuleMapper());
 		return module;
 	}
@@ -79,9 +79,9 @@ import com.citonline.interfaces.impl.StudentImpl;
 	
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
-	public List<Module> listModules() {
+	public List<ModuleImpl> listModules() {
 		String SQL = "select * from module";
-		List<Module> modules = getJdbcTemplate().query(SQL, 
+		List<ModuleImpl> modules = getJdbcTemplate().query(SQL, 
 						new ModuleMapper());
 		return modules;
 	}

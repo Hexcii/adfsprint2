@@ -30,7 +30,7 @@ public interface ModuleDAO {
 
 	public void deleteModule(String crn);	
 	
-	public Module getModule(String crn);  
+	public ModuleImpl getModule(String crn);  
 	
 	public void updateModule(String code, String crn, String name, int semester);
 
@@ -38,6 +38,6 @@ public interface ModuleDAO {
 
 	void createModule(String code, String crn, String name, int semester);
 	
-	List<Module> listModules();
+	List<ModuleImpl> listModules();
 	
 }
