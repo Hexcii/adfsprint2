@@ -26,7 +26,7 @@ ${message}
 			<td>${student.phoneNumber}</td>          
 			<td>${student.addressLine1}</td>
 			<td>${student.addressLine2}</td>   
-			<td><a href="<%= request.getContextPath() %>/student/modifyStudent/id/${status.current.id}"
+			<td><a href="<%= request.getContextPath() %>/student/modifyStudentForm/id/${status.current.id}"
 						class="ui-btn">Modify</a></td>  
 		</tr>
 		</c:forEach>
