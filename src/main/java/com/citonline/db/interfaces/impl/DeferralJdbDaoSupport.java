@@ -250,7 +250,7 @@ public class DeferralJdbDaoSupport extends JdbcDaoSupport implements
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public ArrayList<Deferral>getAllDefferals()
 	{
-		String SQL = "select * from deferral";
+		String SQL = "select * from deferral where id_deferral_status != 3";
 		@SuppressWarnings("unchecked")
 		ArrayList<Deferral> deferrals = (ArrayList<Deferral>) getJdbcTemplate()
 				.query(SQL, new DeferralMapper());
@@ -264,7 +264,7 @@ public class DeferralJdbDaoSupport extends JdbcDaoSupport implements
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public Deferral getDeferralById(int id) {
-		String SQL = "select * from deferral where id = ?";
+		String SQL = "select * from deferral where id_deferral = ?";
 		@SuppressWarnings("unchecked")
 		Deferral deferral = (Deferral) getJdbcTemplate()
 				.query(SQL, new Object[] { id},
