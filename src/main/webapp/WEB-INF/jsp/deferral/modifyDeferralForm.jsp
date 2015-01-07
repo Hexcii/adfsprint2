@@ -43,9 +43,22 @@ $("#modify").click(function(){
 			<form:input path="deferral_date" value="${deferralwrapper.deferral_date}"
 			disabled="true" />
 		</div>
-		<div class="ui-field-contain">
+	<!--   <div class="ui-field-contain">
 			<form:label path="id_deferral_status">status</form:label>
 			<form:input path="id_deferral_status" value="${deferralwrapper.id_deferral_status}"/>
+		</div>
+		-->
+		<div class="ui-field-contain">
+			<form:select path="id_deferral_status">
+			 <form:option value="1" label="uploaded"/>
+			 <form:option value="2" label="approved"/>
+			  <form:option value="3" label="deleted"/>
+			   <form:option value="4" label="downloaded by lecturer"/>
+			    <form:option value="5" label="signed by lecturer"/>
+			     <form:option value="6" label="downloaded by coordinator"/>
+			      <form:option value="7" label="signed coordinator"/>
+			      <form:option value="8" label="not uploaded"/>
+			</form:select>
 		</div>
 		<input type="button" class="ui-btn" data-theme="b" data-icon="check"
 			value="Modify" id="modify" />
