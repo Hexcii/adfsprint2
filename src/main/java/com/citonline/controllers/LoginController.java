@@ -1,4 +1,4 @@
-/**
+
 package com.citonline.controllers;
 
 import org.springframework.stereotype.Controller;
@@ -28,4 +28,4 @@ public ModelAndView login(
 	return model;	 
 }
 }
-**/
+

@@ -1,4 +1,4 @@
-<!--<%@ include file="/WEB-INF/jsp/include.jsp"%>
+<%@ include file="/WEB-INF/jsp/include.jsp"%>
 
 <div id="login-box">
 
@@ -23,7 +23,7 @@
 
 <input name="submit" type="submit" value="Login" />
 </form>
-</div>-->
+</div>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
