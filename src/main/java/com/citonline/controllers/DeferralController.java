@@ -206,13 +206,23 @@ public class DeferralController
 		return "modifyDeferral";
 	}
 	@RequestMapping(value = "/modifyDeferral/id/{id}", method = RequestMethod.GET) 
-	public String modifySongwriter(@PathVariable int id, ModelMap model) { 
+	public String modifyDeferral(@PathVariable int id, ModelMap model) { 
 		Deferral deferralModify=deferralDAO.getDeferralById(id);
+		
+		StudentImpl student = studentdao.getStudent(deferralModify.getId_student());
+		deferralwrapper = new Deferralwrapper();
+		
+		deferralwrapper.setFirstName(student.getFirstName());
+		deferralwrapper.setLastName(student.getLastName());
+		deferralwrapper.setStudentNumber(student.getStudentNumber());
+		deferralwrapper.setProgramDeferred(deferralModify.getProgramDeferred());
+		deferralwrapper.setId_program(deferralModify.getId_program());
+		deferralwrapper.setDeferral_date(deferralModify.getDeferral_date());
+		deferralwrapper.setId(deferralModify.getId());
 		model.addAttribute("message", "Deferral with id "+ id +" can now be modified");
-		model.addAttribute("deferral", deferralModify);
-		return "modifyForm";	
+		model.addAttribute("deferral", deferralwrapper);
+		return "modifyDeferralForm";	
 		}
-	
 	@RequestMapping(value = "/addDeferralAndFile", method = RequestMethod.GET) 
 	public ModelAndView addDeferralAndFile() {    
 		return new ModelAndView("addDeferralAndFile", "deferral", new Deferral());
@@ -294,4 +304,23 @@ public class DeferralController
 			throw new FileTypeException("FileTypeError");
 		}
 	}
+	@RequestMapping(value = "/modifyDeferral/id/{id}/status/{status}", method = RequestMethod.GET) 
+	public String modifyDeferralStatus(@PathVariable("status") String status,@PathVariable("id") String id, ModelMap model) { 
+		
+		deferralDAO.updateDeferralStatus(Integer.parseInt(status), id);
+		StudentImpl student =studentdao.getStudent(id);
+		/*ArrayList<Deferral> deferrals = deferralDAO.getDeferralsStudentNumber(id);
+		deferralwrapper = new Deferralwrapper();
+		
+		deferralwrapper.setFirstName(student.getFirstName());
+		deferralwrapper.setLastName(student.getLastName());
+		deferralwrapper.setStudentNumber(student.getStudentNumber());
+		deferralwrapper.setProgramDeferred(deferrals.getProgramDeferred());
+		deferralwrapper.setId_program(deferrals.getId_program());
+		deferralwrapper.setDeferral_date(deferrals.getDeferral_date());
+		deferralwrapper.setId(deferrals.getId());
+		model.addAttribute("message", "Deferral with id "+ id +" can now be modified");*/
+		model.addAttribute("message", "updated");
+		return "displayDeferral";	
+		}
 }

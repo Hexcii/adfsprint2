@@ -154,5 +154,8 @@
 		<put-attribute name="title" value="Error"></put-attribute>  
      	<put-attribute name="body" value="/WEB-INF/jsp/deferral/errorDeferral.jsp"></put-attribute>  
 	</definition>
-	
+	<definition extends="base.definition" name="modifyDeferralForm">  
+        <put-attribute name="title" value="Modify Deferral"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/deferral/modifyDeferralForm.jsp"></put-attribute>  
+	</definition>
 </tiles-definitions>
