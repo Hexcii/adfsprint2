@@ -62,6 +62,22 @@ tr:nth-child(even) {
 <!-- Panel -->
 <div data-role="panel" id="myPanelDefault" style="text-align:center;"> 
 <div data-role="collapsibleset">
+
+<security:authorize access="hasAnyRole('ROLE_STUDENT')">
+	  <div data-role="collapsible">
+	    <h1 data-icon="plus">Student Functionality</h1>
+	    <ul data-role="listview" data-inset="true">
+	      <li><a href="<%= request.getContextPath() %>/deferral/addNewDeferral">Deferral</a></li>
+	      <li><a href="<%= request.getContextPath() %>/deferral/addDeferralAndFile">Deferral with File</a></li>
+	 	  <li><a href="<%= request.getContextPath() %>/deferral/displayDeferral">Deferral</a></li>
+	      <li><a href="<%= request.getContextPath() %>/module/displayModule">Module</a></li>
+	      <li><a href="<%= request.getContextPath() %>/module/displayModules">Module</a></li>
+	      <li><a href="<%= request.getContextPath() %>/student/modifyStudent">Student</a></li>
+	 	</ul>
+	  </div>	
+</security:authorize>
+
+<security:authorize access="hasAnyRole('ROLE_LECTURER')">
   <div data-role="collapsible">
     <h1 data-icon="plus">Add</h1>
     <ul data-role="listview" data-inset="true">
@@ -110,6 +126,7 @@ tr:nth-child(even) {
       <li><a href="<%= request.getContextPath() %>/module/modifyModule">Module</a></li>
 	</ul>
   </div>
+  </security:authorize>
 </div>
 
 <a href="#pageone" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left">Close Menu</a>
