@@ -108,9 +108,9 @@ tr:nth-child(even) {
       <li><a href="<%= request.getContextPath() %>/student/modifyStudent">Student</a></li>
       <li><a href="<%= request.getContextPath() %>/deferral/modifyDeferral">Deferral</a></li>
       <li><a href="<%= request.getContextPath() %>/module/modifyModule">Module</a></li>
-	</ul>     
+	</ul>
   </div>
-</div>  
+</div>
 
 <a href="#pageone" data-rel="close" class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left">Close Menu</a>
 </div>
