@@ -70,7 +70,7 @@
         <put-attribute name="title" value="Display Deferral"></put-attribute>  
         <put-attribute name="body" value="/WEB-INF/jsp/deferral/displayDeferral.jsp"></put-attribute>  
 	</definition>
-	<definition extends="base.definition" name="displayDeferrals">  
+	<definition extends="base.definition" name="deferralAll">  
         <put-attribute name="title" value="Display Deferrals"></put-attribute>  
         <put-attribute name="body" value="/WEB-INF/jsp/deferral/displayDeferrals.jsp"></put-attribute>  
 	</definition>

@@ -3,7 +3,6 @@ package com.citonline.domain;
 import java.util.ArrayList;
 
 import org.springframework.web.multipart.MultipartFile;
-
 import com.citonline.interfaces.impl.ModuleImpl;
 /**
  * 
