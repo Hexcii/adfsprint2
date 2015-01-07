@@ -44,5 +44,4 @@ public class MailImpl implements MailInt {
 	public void sendPreconfiguredMail() {
 		mailSender.send(customMailMessage);
 	}
-
 }

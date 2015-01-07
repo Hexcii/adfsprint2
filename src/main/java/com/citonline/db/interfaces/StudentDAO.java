@@ -19,6 +19,10 @@ public interface StudentDAO {
 	public void createStudent(String firstName, String lastName, String studentNumber, String email,
 			String phoneNumber, String addressLine1,String addressLine2);
 	
+	public int createStudentGetID(String firstName, String lastName,
+			String studentNumber, String email, String phoneNumber,
+			String addressLine1, String addressLine2);
+	
 	public void deleteStudent(Integer id);
 
 	public void deleteStudent(String studentNumber);	
@@ -28,6 +32,9 @@ public interface StudentDAO {
 	public StudentImpl getStudent(String studentNumber);
 	
 	public List<StudentImpl> listStudents();   
+	
+	public void updateStudent(Integer id, String firstName, String lastName, 
+			String studentNumber, String email, String phoneNumber, String addressLine1, String addressLine2);
 	
 	public void updateStudentEmail(String studentNumber, String email);
 	

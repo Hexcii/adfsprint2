@@ -2,8 +2,11 @@ package com.citonline.db.interfaces.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import org.springframework.jdbc.core.RowMapper;
+
 import com.citonline.domain.Module;
+import com.citonline.interfaces.impl.ModuleImpl;
 
 /* Author: Tim Wallace
  * Date: 03/11/14
@@ -22,7 +25,7 @@ public class ModuleMapper implements RowMapper {
 		String crn = rs.getString("crn");
 		String name = rs.getString("name");
 		int semester = rs.getInt("semester");
-		Module module = new Module(id, code, crn, name, 
+		ModuleImpl module = new ModuleImpl(id, code, crn, name, 
 				semester);
 		
 		return module;

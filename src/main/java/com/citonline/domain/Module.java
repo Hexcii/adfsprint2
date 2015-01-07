@@ -56,5 +56,6 @@ public class Module {
 		this.name = name;
 		this.semester = semester;
 	}
+	public Module() {}
 	
 }

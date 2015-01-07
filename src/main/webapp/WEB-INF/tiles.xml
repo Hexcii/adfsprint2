@@ -49,7 +49,7 @@
 	
 	<definition extends="base.definition" name="deferralStatus">  
         <put-attribute name="title" value="Deferral Status"></put-attribute>  
-        <put-attribute name="body" value="/WEB-INF/jsp/deferral/deferralStatus.jsp"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/deferral/displayDeferrals.jsp"></put-attribute>  
 	</definition>
       
 	<definition extends="base.definition" name="addNewDeferral">  
@@ -70,4 +70,89 @@
         <put-attribute name="title" value="Display Deferral"></put-attribute>  
         <put-attribute name="body" value="/WEB-INF/jsp/deferral/displayDeferral.jsp"></put-attribute>  
 	</definition>
+	<definition extends="base.definition" name="displayDeferrals">  
+        <put-attribute name="title" value="Display Deferrals"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/deferral/displayDeferrals.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="login">  
+        <put-attribute name="title" value="Login"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/templating/login.jsp"></put-attribute>
+	</definition>
+	
+	<definition extends="base.definition" name="addModule">  
+        <put-attribute name="title" value="Add Module"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/module/addModule.jsp"></put-attribute>
+	</definition>
+	<definition extends="base.definition" name="deleteModule">  
+        <put-attribute name="title" value="Delete Module"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/module/deleteModule.jsp"></put-attribute>
+	</definition>
+	<definition extends="base.definition" name="modifyModule">  
+        <put-attribute name="title" value="Modify Module"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/module/modifyModule.jsp"></put-attribute>
+	</definition>
+	<definition extends="base.definition" name="displayModule">  
+        <put-attribute name="title" value="Display Module"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/module/displayModule.jsp"></put-attribute>
+	</definition>
+	<definition extends="base.definition" name="displayModules">  
+        <put-attribute name="title" value="Display Modules"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/module/displayModules.jsp"></put-attribute>
+	</definition>
+		<definition extends="base.definition" name="modifyModuleForm">  
+        <put-attribute name="title" value="Modify Module"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/module/modifyModuleForm.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="displayStudent">  
+       	<put-attribute name="title" value="Display Student"></put-attribute>  
+     	<put-attribute name="body" value="/WEB-INF/jsp/student/displayStudent.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="displayStudents">  
+       	<put-attribute name="title" value="Display Students"></put-attribute>  
+     	<put-attribute name="body" value="/WEB-INF/jsp/student/displayStudents.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="addNewStudent">  
+		<put-attribute name="title" value="Add New Student"></put-attribute>  
+       	<put-attribute name="body" value="/WEB-INF/jsp/student/addNewStudent.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="deferralAll">  
+        <put-attribute name="title" value="Deferral All"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/deferral/displayDeferrals.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="removeStudent">  
+		<put-attribute name="title" value="Remove Student"></put-attribute>  
+       	<put-attribute name="body" value="/WEB-INF/jsp/student/removeStudent.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="errorStudent">  
+		<put-attribute name="title" value="Error"></put-attribute>  
+     <put-attribute name="body" value="/WEB-INF/jsp/student/error.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="modifyStudent">  
+        <put-attribute name="title" value="Modify Student"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/student/modifyStudent.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="modifyStudentForm">  
+        <put-attribute name="title" value="Modify Student"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/student/modifyStudentForm.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="addDeferralAndFile">  
+        <put-attribute name="title" value="Add New Deferral and File"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/deferral/addDeferralAndFile.jsp"></put-attribute>  
+	</definition>
+	
+	<definition extends="base.definition" name="errorDeferral">
+		<put-attribute name="title" value="Error"></put-attribute>  
+     	<put-attribute name="body" value="/WEB-INF/jsp/deferral/errorDeferral.jsp"></put-attribute>  
+	</definition>
+	
 </tiles-definitions>

@@ -1,16 +1,31 @@
 <%@ include file="/WEB-INF/jsp/include.jsp"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Deferral</title>
-</head>
-<body>
-<div id="messageTest">
-		<h3>Test</h3>
-		<h5>${message}</h5>
-	</div>
-</body>
-</html>
+<h2>${message}</h2>
+
+<table data-role="table" data-mode="columntoggle" class="ui-responsive" id="myTable">
+  <thead>
+	<tr>
+		<th data-priority="3">student first name</th>
+		<th data-priority="3">student last name</th>
+		<th data-priority="5">student number</th>
+		<th data-priority="4">deferral id</th>
+		<th data-priority="2">program id</th>
+		<th data-priority="1">deferral date</th>
+		<th data-priority="2">program deferred</th>
+	</tr>
+</thead>
+<tbody>
+	<c:forEach var="deferralw" items="${deferralws}" varStatus="status">
+		<tr>
+			<td>${deferralw.firstName}</td>
+			<td>${deferralw.lastName}</td>
+			<td>${deferralw.studentNumber}</td>
+			<td>${deferralw.id}</td>
+			<td>${deferralw.id_program}</td>
+			<td>${deferralw.deferral_date}</td>
+			<td>${deferralw.programDeferred}</td>
+			<td><a href="<%= request.getContextPath() %>/deferral/deleteDeferral/id/${status.current.id}"
+						class="ui-btn">Delete</a></td>  
+		</tr>
+	</c:forEach>
+	</tbody>
+</table>

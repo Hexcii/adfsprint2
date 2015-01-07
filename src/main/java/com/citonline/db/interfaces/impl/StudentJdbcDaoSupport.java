@@ -2,6 +2,7 @@ package com.citonline.db.interfaces.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,11 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
+import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
+import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +49,7 @@ public class StudentJdbcDaoSupport extends JdbcDaoSupport implements StudentDAO 
 			String studentNumber, String email, String phoneNumber,
 			String addressLine1, String addressLine2) {
 		
-		String SQL = "INSERT INTO Student (firstName, lastName, studentNumber, "
+		String SQL = "INSERT INTO student (firstName, lastName, studentNumber, "
 				+ "email, phoneNumber,"
 				+ "addressLine1, addressLine2) "
 				+ "VALUES(?, ?, ?, ?, ?, ?, ?)";
@@ -57,11 +62,39 @@ public class StudentJdbcDaoSupport extends JdbcDaoSupport implements StudentDAO 
 				+phoneNumber + ", address = " + addressLine1 + " " + addressLine2);
 		
 	}
+	
+	@Transactional
+	public int createStudentGetID(String firstName, String lastName,
+			String studentNumber, String email, String phoneNumber,
+			String addressLine1, String addressLine2) {
+
+		String SQL = "INSERT INTO student (firstName, lastName, studentNumber, "
+				+ "email, phoneNumber,"
+				+ "addressLine1, addressLine2) "
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?)";
+		
+		Object[] params=new Object[]{ firstName, lastName, studentNumber,email,phoneNumber,addressLine1,addressLine2};
+		PreparedStatementCreatorFactory psc=new PreparedStatementCreatorFactory(SQL);
+		psc.addParameter(new SqlParameter("firstName", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("lastName", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("studentNumber", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("email", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("phoneNumber", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("addressLine1", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("addressLine2", Types.VARCHAR));
+
+		KeyHolder holder = new GeneratedKeyHolder();
+		getJdbcTemplate().update(psc.newPreparedStatementCreator(params), holder);
+
+		System.out.println("holder:"+holder.getKey().toString());
+		String key=holder.getKey().toString();
+		return Integer.parseInt(key);
+	}
 
 	@Override
 	@Transactional
 	public void deleteStudent(Integer id) {
-		String SQL = "delete from Student where id_student = ?";
+		String SQL = "delete from student where id_student = ?";
 		getJdbcTemplate().update(SQL, new Object[] {id});
 		System.out.println("Deleted student where id_student = " + id );		
 	}
@@ -69,7 +102,7 @@ public class StudentJdbcDaoSupport extends JdbcDaoSupport implements StudentDAO 
 	@Override
 	@Transactional
 	public void deleteStudent(String studentNumber) {
-		String SQL = "delete from Student where studentNumber = ?";
+		String SQL = "delete from student where studentNumber = ?";
 		getJdbcTemplate().update(SQL, new Object[] {studentNumber});
 		System.out.println("Deleted student where studentNumber = " + studentNumber );		
 	}
@@ -77,7 +110,7 @@ public class StudentJdbcDaoSupport extends JdbcDaoSupport implements StudentDAO 
 	@Override
 	@Transactional
 	public StudentImpl getStudent(Integer id) {
-		String SQL = "select * from Student where id_student = ?";
+		String SQL = "select * from student where id_student = ?";
 		StudentImpl student = (StudentImpl) getJdbcTemplate().queryForObject(SQL, 
 						new Object[]{id}, new StudentMapper());
 		
@@ -87,7 +120,7 @@ public class StudentJdbcDaoSupport extends JdbcDaoSupport implements StudentDAO 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public StudentImpl getStudent(String studentNumber) {
-		String SQL = "select * from Student where studentNumber = ?";
+		String SQL = "select * from student where studentNumber = ?";
 		StudentImpl student = (StudentImpl) getJdbcTemplate().queryForObject(SQL, 
 						new Object[]{studentNumber}, new StudentMapper());
 		
@@ -101,6 +134,18 @@ public class StudentJdbcDaoSupport extends JdbcDaoSupport implements StudentDAO 
 		List<StudentImpl> studentList = getJdbcTemplate().query(SQL, 
 						new StudentMapper());
 		return studentList;
+	}
+	
+	@Override
+	@Transactional
+	public void updateStudent(Integer id, String firstName, String lastName,String studentNumber, String email, 
+			String phoneNumber, String addressLine1, String addressLine2)	{
+		
+		String SQL = "update student set firstName= ?, lastName = ?, studentNumber = ?, email = ?,"
+				+ " phoneNumber = ?, addressLine1 = ?, addressLine2 = ? where id_student = ?";
+		getJdbcTemplate().update(SQL, new Object[] {firstName,lastName,studentNumber,email,phoneNumber,addressLine1,addressLine2,id});
+		System.out.println("Updated student email to " + email 
+				+ " where studentNumber = " + studentNumber );
 	}
 
 	@Override

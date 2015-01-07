@@ -1,6 +1,8 @@
 package com.citonline.domain;
 
 import java.util.ArrayList;
+
+import org.springframework.web.multipart.MultipartFile;
 /**
  * 
  * @author peter halligan
@@ -17,6 +19,7 @@ public class Deferral
 	boolean programDeferred;
 	int id_program;
 	int id_deferral_status;
+	private MultipartFile file;
 	
 	/**
 	 * costructor with id for row mapper
@@ -55,12 +58,12 @@ public class Deferral
 		deferredModules = new ArrayList<Module>();
 	}
 	public Deferral() {}
-	public int getStatus() {
+	public int getId_deferral_status() {
 		return id_deferral_status;
 	}
 
-	public void setStatus(DeferralStatus status) {
-		this.id_deferral_status = status.getStatus();
+	public void setId_deferral_status(int status) {
+		this.id_deferral_status = status;
 	}
 	public boolean getProgramDeferred() {
 		return programDeferred;
@@ -76,13 +79,22 @@ public class Deferral
 	public void setId_program(int id_program) {
 		this.id_program = id_program;
 	}
-	public String getDefferalDate() {
+	
+	public String getDeferral_date() {
 		return deferral_date;
 	}
-	public void setDefferalDate(String defferal_date) {
-		this.deferral_date = defferal_date;
+	public void setDeferral_date(String deferral_date) {
+		this.deferral_date = deferral_date;
 	}
-	
+	public ArrayList<Module> getDeferredModules() {
+		return deferredModules;
+	}
+	public void setDeferredModules(ArrayList<Module> deferredModules) {
+		this.deferredModules = deferredModules;
+	}
+	public void setProgramDeferred(boolean programDeferred) {
+		this.programDeferred = programDeferred;
+	}
 	public int getId_student() {
 		return id_student;
 	}
@@ -102,6 +114,14 @@ public class Deferral
 
 	public void setId(int id_deferral) {
 		this.id= id_deferral;
+	}
+	
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 	
 }

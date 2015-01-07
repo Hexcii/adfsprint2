@@ -2,14 +2,20 @@ package com.citonline.db.interfaces.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
+import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
+import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +24,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import com.citonline.db.interfaces.DeferralDAO;
 import com.citonline.domain.Deferral;
 import com.citonline.domain.Module;
+import com.citonline.interfaces.impl.StudentImpl;
 
 /**
  * 
@@ -248,11 +255,10 @@ public class DeferralJdbDaoSupport extends JdbcDaoSupport implements
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public ArrayList<Deferral>getAllDefferals()
 	{
-		int status =3;
-		String SQL = "select * from deferral where id_deferral_status !=? )";
+		String SQL = "select * from deferral where id_deferral_status != 3";
 		@SuppressWarnings("unchecked")
 		ArrayList<Deferral> deferrals = (ArrayList<Deferral>) getJdbcTemplate()
-				.query(SQL, new Object[] { status }, new DeferralMapper());
+				.query(SQL, new DeferralMapper());
 		return deferrals;
 	}
 	/**
@@ -263,12 +269,36 @@ public class DeferralJdbDaoSupport extends JdbcDaoSupport implements
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public Deferral getDeferralById(int id) {
-		String SQL = "select * from deferral where id = ?";
+		String SQL = "select * from deferral where id_deferral = ?";
 		@SuppressWarnings("unchecked")
 		Deferral deferral = (Deferral) getJdbcTemplate()
 				.query(SQL, new Object[] { id},
 						new DeferralMapper());
 		return deferral;
 	}
-	
+
+	@Transactional
+	public int createDeferralGetId(String date, int id_program, int id_student,boolean program_deferred, int status) {
+
+		String SQL = "INSERT INTO  deferral(deferral_date, id_program, id_student, program_deferred, id_deferral_status)"
+				+ " VALUES(?, ?, ?, ?, ?)";
+
+		getJdbcTemplate().update(
+				SQL,
+				new Object[] { date, id_program, id_student, program_deferred,	status });
+		
+		Object[] params=new Object[]{ date, id_program,id_student,program_deferred,status};
+		PreparedStatementCreatorFactory psc=new PreparedStatementCreatorFactory(SQL);
+		psc.addParameter(new SqlParameter("deferral_date", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("id_program", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("id_student", Types.VARCHAR));
+		psc.addParameter(new SqlParameter("program_deferred", Types.BOOLEAN));
+		psc.addParameter(new SqlParameter("id_deferral_status", Types.VARCHAR));
+		KeyHolder holder = new GeneratedKeyHolder();
+		getJdbcTemplate().update(psc.newPreparedStatementCreator(params), holder);
+
+		System.out.println("holder:"+holder.getKey().toString());
+		String key=holder.getKey().toString();
+		return Integer.parseInt(key);
+	}
 }

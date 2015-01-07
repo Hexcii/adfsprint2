@@ -20,15 +20,12 @@
  <form:errors path="id_program" cssClass="error" class="notification error" style="display:block"></form:errors>
  </div>
  
- 
  <div data-role-="fieldcontain">
  <fieldset data-role="controlgroup">
  <form:checkbox path="programDeferred"  label="Deferring whole program"/>
  </fieldset>
  <form:errors path="programDeferred" cssClass="error" class="notification error" style="display:block"></form:errors>
  </div>
- 
-  -->
  
  <input data-theme="b" type="submit" data-icon="check" value="Save" />
   </form:form> 
