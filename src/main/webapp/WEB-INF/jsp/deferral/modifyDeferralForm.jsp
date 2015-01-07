@@ -6,7 +6,6 @@
 $(function() {
 $("#modify").click(function(){		
 	var status = $("#id_deferral_status").val(); 
-	
 	var studentNumber='${deferral.studentNumber}';	
 	var url="/deferral/modifyDeferral/id/"+ studentNumber + "/status/"+status;
 	location.href="<%= request.getContextPath() %>"+url;
@@ -16,6 +15,7 @@ $("#modify").click(function(){
 </head>
 
 <body>
+<h2>${message}</h2>
 	<form:form modelAttribute="deferral">
 
 		<div class="ui-field-contain">

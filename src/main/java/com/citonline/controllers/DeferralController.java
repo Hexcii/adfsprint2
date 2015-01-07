@@ -219,6 +219,11 @@ public class DeferralController
 		deferralwrapper.setId_program(deferralModify.getId_program());
 		deferralwrapper.setDeferral_date(deferralModify.getDeferral_date());
 		deferralwrapper.setId(deferralModify.getId());
+		
+		System.out.println("name: " +deferralwrapper.getFirstName());
+		System.out.println("name: " + deferralwrapper.getLastName());
+		System.out.println("date: " +deferralwrapper.getDeferral_date());
+		
 		model.addAttribute("message", "Deferral with id "+ id +" can now be modified");
 		model.addAttribute("deferral", deferralwrapper);
 		return "modifyDeferralForm";	
