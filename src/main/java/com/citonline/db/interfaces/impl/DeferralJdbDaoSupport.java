@@ -302,4 +302,14 @@ public class DeferralJdbDaoSupport extends JdbcDaoSupport implements
 		String key=holder.getKey().toString();
 		return Integer.parseInt(key);
 	}
+
+	@Override
+	public void addDeferredModuleByid(int id_deferral, int defered) {
+		String SQL = "insert into deferred_modules (id_deferral, id_module) "
+				+ "values (?, ?)";
+		getJdbcTemplate().update(
+				SQL,
+				new Object[] {id_deferral, defered});
+		System.out.println("added deferral" + id_deferral + "\n module" + defered);
+	}
 }

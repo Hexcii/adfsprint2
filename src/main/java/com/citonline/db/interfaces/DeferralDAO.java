@@ -128,5 +128,10 @@ public interface DeferralDAO
 	public ArrayList<Deferral>getAllDefferals();
 	
 	public int createDeferralGetId(String date, int id_program, int id_student, boolean proframDeferred, int status);
-
+	/**
+	 * 
+	 * @param id_deferral
+	 * @param deferedmoduleid
+	 */
+	void addDeferredModuleByid(int id_deferral, int defered);
 }

@@ -3,6 +3,7 @@ package com.citonline.domain;
 import java.util.ArrayList;
 
 import org.springframework.web.multipart.MultipartFile;
+import com.citonline.interfaces.impl.ModuleImpl;
 /**
  * 
  * @author peter halligan
@@ -15,7 +16,7 @@ public class Deferral
 	int id;
 	String deferral_date;
 	int id_student;
-	ArrayList<Module> deferredModules;
+	ArrayList<ModuleImpl> deferredModules;
 	boolean programDeferred;
 	int id_program;
 	int id_deferral_status;
@@ -38,7 +39,7 @@ public class Deferral
 		this.programDeferred = program_deferred;
 		this.id_program = id_program;
 		this.id_deferral_status =id_deferral_status;
-		deferredModules = new ArrayList<Module>();
+		deferredModules = new ArrayList<ModuleImpl>();
 	}
 	/**
 	 * constructor with no id 
@@ -55,7 +56,7 @@ public class Deferral
 		this.programDeferred = program_deferred;
 		this.id_program = id_program;
 		this.id_deferral_status =id_deferral_status;
-		deferredModules = new ArrayList<Module>();
+		deferredModules = new ArrayList<ModuleImpl>();
 	}
 	public Deferral() {}
 	public int getId_deferral_status() {
@@ -86,10 +87,10 @@ public class Deferral
 	public void setDeferral_date(String deferral_date) {
 		this.deferral_date = deferral_date;
 	}
-	public ArrayList<Module> getDeferredModules() {
+	public ArrayList<ModuleImpl> getDeferredModules() {
 		return deferredModules;
 	}
-	public void setDeferredModules(ArrayList<Module> deferredModules) {
+	public void setDeferredModules(ArrayList<ModuleImpl> deferredModules) {
 		this.deferredModules = deferredModules;
 	}
 	public void setProgramDeferred(boolean programDeferred) {
@@ -101,10 +102,10 @@ public class Deferral
 	public void setId_student(int id_student) {
 		this.id_student = id_student;
 	}
-	public ArrayList<Module> getDefferedModules() {
+	public ArrayList<ModuleImpl> getDefferedModules() {
 		return deferredModules;
 	}
-	public void setDefferedModules(ArrayList<Module> defferedModules) {
+	public void setDefferedModules(ArrayList<ModuleImpl> defferedModules) {
 		this.deferredModules = defferedModules;
 	}
 
