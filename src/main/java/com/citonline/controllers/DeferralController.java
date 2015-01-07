@@ -426,7 +426,7 @@ public class DeferralController
 		}
 		model.addAttribute("modules", activemodules);
 		
-		model.addAttribute("message", "added");
+		model.addAttribute("message", "Deferred");
 		return "deferModule";
 		
 	}

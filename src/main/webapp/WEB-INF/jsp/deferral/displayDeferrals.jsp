@@ -24,7 +24,7 @@
 			<td>${deferral.deferral_date}</td>         
 			<td>${deferral.programDeferred}</td>          
 			<td>${deferral.id_deferral_status}</td>  
-			<td><a href="<%= request.getContextPath() %>/deferral/downloadFile/${deferral.id}"
+			<td><a href="<%= request.getContextPath() %>/deferral/downloadFile/${deferral.id}.pdf"
 						class="ui-btn">Download File</a></td>         
 		</tr>
 	</c:forEach>
