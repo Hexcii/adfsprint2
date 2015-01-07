@@ -8,28 +8,7 @@
     http://www.springframework.org/schema/security
     http://www.springframework.org/schema/security/spring-security-3.2.xsd">
        
-    <security:http auto-config="true" use-expressions="true">
-        <security:intercept-url pattern="/lecturer/**" access="ROLE_LECTURER" />
-        <security:intercept-url pattern="/deferral/**" access="ROLE_LECTURER" />
-        <security:intercept-url pattern="/module/**" access="ROLE_LECTURER" />
-        <security:intercept-url pattern="/student/**" access="ROLE_LECTURER" />
-        
-        <security:intercept-url pattern="/deferral/addNewDeferral" access="ROLE_STUDENT" />
-        <security:intercept-url pattern="/deferral/addDeferralAndFile" access="ROLE_STUDENT" />
-        <security:intercept-url pattern="/deferral/displayDeferral" access="ROLE_STUDENT" />
-        
-        <security:intercept-url pattern="/student/modifyStudent" access="ROLE_STUDENT" />
-        <security:intercept-url pattern="/student/modifyStudentForm" access="ROLE_STUDENT" />
-        <security:intercept-url pattern="/module/displayModule" access="ROLE_STUDENT" />
-        <security:intercept-url pattern="/module/displayModules" access="ROLE_STUDENT" />
-        
-        <security:intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
-		<security:form-login login-page="/login" default-target-url="/home"
-         		authentication-failure-url="/login?error"/>
-		<security:logout logout-success-url="/login?logout" />
-    </security:http>
-     
-     <security:authentication-manager>
+    <security:authentication-manager>
         <security:authentication-provider>
             <security:user-service>
                 <security:user name="donna" password="donna" authorities="ROLE_LECTURER" />
@@ -39,6 +18,28 @@
             </security:user-service>
         </security:authentication-provider>
     </security:authentication-manager> 
+       
+    <security:http auto-config="true" use-expressions="true" >
+        <security:intercept-url pattern="/lecturer/**" access="hasAnyRole('ROLE_LECTURER','ROLE_STUDENT')" />
+        <security:intercept-url pattern="/deferral/**" access="hasAnyRole('ROLE_LECTURER','ROLE_STUDENT')" />
+        <security:intercept-url pattern="/module/**" access="hasAnyRole('ROLE_LECTURER','ROLE_STUDENT')" />
+        <security:intercept-url pattern="/student/**" access="hasAnyRole('ROLE_LECTURER','ROLE_STUDENT')" />
+        
+<!--         <security:intercept-url pattern="/deferral/addNewDeferral" access="hasRole('ROLE_STUDENT')" />
+        <security:intercept-url pattern="/deferral/addDeferralAndFile" access="hasRole('ROLE_STUDENT')" />
+        <security:intercept-url pattern="/deferral/displayDeferral" access="hasRole('ROLE_STUDENT')" />
+        
+        <security:intercept-url pattern="/student/modifyStudent" access="hasRole('ROLE_STUDENT')" />
+        <security:intercept-url pattern="/student/modifyStudentForm" access="hasRole('ROLE_STUDENT')" />
+        <security:intercept-url pattern="/module/displayModule" access="hasRole('ROLE_STUDENT')" />
+        <security:intercept-url pattern="/module/displayModules" access="hasRole('ROLE_STUDENT')" /> -->
+        
+        <security:intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+		<security:form-login login-page="/login" default-target-url="/home"
+         		authentication-failure-url="/login?error"/>
+		<security:logout logout-success-url="/login?logout" />
+    </security:http>
+     
     
 <!-- 		<security:authentication-manager>
 			<security:authentication-provider>

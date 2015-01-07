@@ -63,21 +63,19 @@ tr:nth-child(even) {
 <div data-role="panel" id="myPanelDefault" style="text-align:center;"> 
 <div data-role="collapsibleset">
 
-<security:authorize access="hasAnyRole('ROLE_STUDENT')">
+<security:authorize access="hasRole('ROLE_STUDENT')">
 	  <div data-role="collapsible">
 	    <h1 data-icon="plus">Student Functionality</h1>
 	    <ul data-role="listview" data-inset="true">
-	      <li><a href="<%= request.getContextPath() %>/deferral/addNewDeferral">Deferral</a></li>
-	      <li><a href="<%= request.getContextPath() %>/deferral/addDeferralAndFile">Deferral with File</a></li>
-	 	  <li><a href="<%= request.getContextPath() %>/deferral/displayDeferral">Deferral</a></li>
-	      <li><a href="<%= request.getContextPath() %>/module/displayModule">Module</a></li>
-	      <li><a href="<%= request.getContextPath() %>/module/displayModules">Module</a></li>
-	      <li><a href="<%= request.getContextPath() %>/student/modifyStudent">Student</a></li>
+	      <li><a href="<%= request.getContextPath() %>/deferral/addNewDeferral">Add Deferral</a></li>
+	      <li><a href="<%= request.getContextPath() %>/deferral/addDeferralAndFile">Add Deferral & File</a></li>
+	      <li><a href="<%= request.getContextPath() %>/module/displayModules">List Modules</a></li>
+	      <li><a href="<%= request.getContextPath() %>/student/modifyStudent">Modify Students</a></li>
 	 	</ul>
 	  </div>	
 </security:authorize>
 
-<security:authorize access="hasAnyRole('ROLE_LECTURER')">
+<security:authorize access="hasRole('ROLE_LECTURER')">
   <div data-role="collapsible">
     <h1 data-icon="plus">Add</h1>
     <ul data-role="listview" data-inset="true">
@@ -112,7 +110,7 @@ tr:nth-child(even) {
     <ul data-role="listview" data-inset="true">
       <li><a href="<%= request.getContextPath() %>/lecturer/displayLecturers">Lecturer</a></li>
       <li><a href="<%= request.getContextPath() %>/student/displayStudents">Student</a></li>
-      <li><a href="<%= request.getContextPath() %>/deferral/displayDeferrals">Deferral</a></li>
+      <li><a href="<%= request.getContextPath() %>/deferral/deferralAll">Deferral</a></li>
       <li><a href="<%= request.getContextPath() %>/module/displayModules">Module</a></li>
  	</ul>     
   </div>
