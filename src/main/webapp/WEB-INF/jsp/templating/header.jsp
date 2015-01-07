@@ -15,15 +15,6 @@
 	<security:authorize access="isAnonymous()">
 		<a href="${url}" class="ui-btn ui-icon-search ui-btn-icon-left">Login</a>
 	</security:authorize>
-	
-
-	<div data-role="navbar">
-    	<ul>
-	        <li><a href="#">Lecturer</a></li>
-	        <li><a href="#">Student</a></li>
-	        <li><a href="#">Deferral</a></li>
-    	</ul>
-    </div>
 
 </body>
 </html>

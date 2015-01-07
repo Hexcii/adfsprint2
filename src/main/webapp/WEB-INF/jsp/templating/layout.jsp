@@ -64,15 +64,13 @@ tr:nth-child(even) {
 <div data-role="collapsibleset">
 
 <security:authorize access="hasRole('ROLE_STUDENT')">
-	  <div data-role="collapsible">
-	    <h1 data-icon="plus">Student Functionality</h1>
+	    <h1 data-icon="plus">Menu</h1>
 	    <ul data-role="listview" data-inset="true">
 	      <li><a href="<%= request.getContextPath() %>/deferral/addNewDeferral">Add Deferral</a></li>
 	      <li><a href="<%= request.getContextPath() %>/deferral/addDeferralAndFile">Add Deferral & File</a></li>
 	      <li><a href="<%= request.getContextPath() %>/module/displayModules">List Modules</a></li>
 	      <li><a href="<%= request.getContextPath() %>/student/modifyStudent">Modify Students</a></li>
 	 	</ul>
-	  </div>	
 </security:authorize>
 
 <security:authorize access="hasRole('ROLE_LECTURER')">
