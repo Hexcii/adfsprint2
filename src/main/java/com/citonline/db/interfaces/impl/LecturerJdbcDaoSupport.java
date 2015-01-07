@@ -568,4 +568,25 @@ public class LecturerJdbcDaoSupport extends JdbcDaoSupport implements LecturerDA
 		return key;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.citonline.db.interfaces.LecturerDAO#updateLecturer(int, java.lang.String, java.lang.String, java.lang.Integer, java.util.List)
+	 */
+	@Override
+	public void updateLecturer(int id, String phoneNumber, String roomNumber,
+			Integer idManagedProgram, Integer taughtModule) {
+		
+		String SQL = "UPDATE lecturer SET phoneNumber=?, roomNumber=?, idManagedProgram=?"
+				+ " where id_lecturer = ?";
+		if (idManagedProgram == 0)
+			idManagedProgram = null;
+
+		if (taughtModule == 0)
+			taughtModule = null;
+		
+		getJdbcTemplate().update(SQL, new Object[]{phoneNumber, roomNumber, idManagedProgram, id});
+		addTaughtModule(id, taughtModule);
+		
+		System.out.println("update lecturer " + id);
+	}
+
 }

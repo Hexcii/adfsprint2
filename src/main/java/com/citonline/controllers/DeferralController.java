@@ -64,7 +64,14 @@ public class DeferralController
 
 	
 	Deferralwrapper deferralwrapper;
-	//done
+	/**
+	 * will work if typed in to the url no gui done
+	 * returns a list of deferals with status==status
+	 * @author peter halligan
+	 * @param status
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/deferralStatus/{status}", method=RequestMethod.GET)
 	public String getlDefferalStatus(@PathVariable("status") int status, ModelMap model){
 		List<Deferral> deferrals=new ArrayList<Deferral>();
@@ -73,7 +80,12 @@ public class DeferralController
 		model.addAttribute("deferrals", deferrals);
 	    return "displayDeferrals";
 	}
-	//done
+	/**
+	 * lists all deferrals
+	 * @author peter halligan
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/deferralAll", method=RequestMethod.GET)
 	public String getAllDefferal(ModelMap model){
 		List<Deferral> deferrals=new ArrayList<Deferral>();
@@ -82,7 +94,13 @@ public class DeferralController
 		model.addAttribute("deferrals", deferrals);
 	    return "displayDeferrals";
 	}
-	//done
+	/**
+	 * lists deferrals with status name==status works when typed into url no gui
+	 * @author peter halligan
+	 * @param status
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/listDeferralStatus/{status}", method=RequestMethod.GET)
 	public String getDefferalByStatusName(@PathVariable("status") String status, ModelMap model){
 		List<Deferral> deferrals=new ArrayList<Deferral>();
@@ -91,6 +109,14 @@ public class DeferralController
 		model.addAttribute("deferrals", deferrals);
 	    return "displayDeferrals";
 	}
+	/**
+	 * returns deferrals for name combo no gui
+	 * @author peter halligan
+	 * @param firstName
+	 * @param lastName
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/listName/{firstName}/{lastName}", method=RequestMethod.GET)
 	public String getDefferalByName(@PathVariable("firstName") String firstName,@PathVariable("lastName") String lastName, ModelMap model){
 		List<Deferral> deferrals=new ArrayList<Deferral>();
@@ -99,6 +125,13 @@ public class DeferralController
 		model.addAttribute("deferrals", deferrals);
 	    return "displayDeferrals";
 	}
+	/**
+	 * no gui works in url
+	 * @author peter halligan
+	 * @param studentNumber
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/listStudentNumber/{studentNumber}/", method=RequestMethod.GET)
 	public String getDefferalByName(@PathVariable("studentNumber") String studentNumber, ModelMap model){
 		List<Deferral> deferrals=new ArrayList<Deferral>();
@@ -107,7 +140,12 @@ public class DeferralController
 		model.addAttribute("deferrals", deferrals);
 	    return "displayDeferrals";
 	}
-	
+	/**
+	 * delete deferral, retuns list of deferrals that can be deleted
+	 * @author peter halligan
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/deleteDeferral", method=RequestMethod.GET)
 	public ModelAndView delete(ModelMap model){
 		ArrayList<Deferral> deferrals = new ArrayList<Deferral>();
@@ -116,8 +154,9 @@ public class DeferralController
 		StudentImpl student;
 		for (Deferral d: deferrals)
 		{
+			//student with id in deferral
 			student = studentdao.getStudent(d.getId_student());
-			
+			//wrapper to display student and deferral data
 			deferralwrapper = new Deferralwrapper();
 			
 			deferralwrapper.setFirstName(student.getFirstName());
@@ -137,6 +176,13 @@ public class DeferralController
 		//}
 		return new ModelAndView("deleteDeferral", "deferralws", deferralw);
 	}
+	/**
+	 * delete deferral and display undeleted deferals
+	 * @author peter halligan
+	 * @param id
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value ="/deleteDeferral/id/{id}", method = RequestMethod.GET) 
 	public String deleteStudentById(@PathVariable int id, ModelMap model) { 
 		deferralDAO.deleteDeferral(id);
@@ -164,7 +210,10 @@ public class DeferralController
 		model.addAttribute("deferralws", deferralw);
 		return "deleteDeferral";
 	}
-	
+	/**
+	 * add new deferral
+	 * @return
+	 */
 	@RequestMapping(value = "/addNewDeferral", method = RequestMethod.GET) 
 	public ModelAndView addNewDeferral() {                                
 		return new ModelAndView("addNewDeferral", "deferralwrapper", new Deferralwrapper());
@@ -186,9 +235,8 @@ public class DeferralController
 			return "errorDeferral";
 		}
 		int id = 0;
-		System.out.println(student.getId());
 		try {
-			id =deferralDAO.createDeferralGetId(today, deferral.getId_program(), student.getId(), deferral.getProgramDeferred(), 1);
+			id =deferralDAO.createDeferralGetId(today, deferral.getId_program(), student.getId(), deferral.getProgramDeferred(), 8);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
