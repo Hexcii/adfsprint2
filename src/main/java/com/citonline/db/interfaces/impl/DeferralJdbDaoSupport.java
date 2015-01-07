@@ -272,7 +272,7 @@ public class DeferralJdbDaoSupport extends JdbcDaoSupport implements
 		String SQL = "select * from deferral where id_deferral = ?";
 		@SuppressWarnings("unchecked")
 		Deferral deferral = (Deferral) getJdbcTemplate()
-				.query(SQL, new Object[] { id},
+				.queryForObject(SQL, new Object[] { id},
 						new DeferralMapper());
 		return deferral;
 	}
