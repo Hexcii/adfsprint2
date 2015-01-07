@@ -44,7 +44,7 @@ tr:nth-child(even) {
 <body>
 <div data-role="page">
 <!--header--> 
-<div data-role="header" data-position="fixed" data-theme="b" > 	
+<div data-role="header" data-position="fixed" data-theme="a" > 	
 		<tiles:insertAttribute name="header"  />
 </div> 
 <!--main body with a panel to the left -->
@@ -54,7 +54,7 @@ tr:nth-child(even) {
 </div>			
 		
 <!--footer-->	
-<div  data-role="footer" data-position="fixed" data-theme="b">
+<div  data-role="footer" data-position="fixed" data-theme="a">
 	<tiles:insertAttribute name="footer" />
 </div>
 
@@ -75,18 +75,18 @@ tr:nth-child(even) {
    <div data-role="collapsible">
     <h1 data-icon="delete">Remove</h1>
     <ul data-role="listview" data-inset="true">
-      <li><a href="#">Lecturer</a></li>
+      <li><a href="<%= request.getContextPath() %>/lecturer/delete">Lecturer</a></li>
       <li><a href="<%= request.getContextPath() %>/student/removeStudent">Student</a></li>
-      <li><a href="#">Deferral</a></li>
+      <li><a href="<%= request.getContextPath() %>/deferral/deleteDeferral">Deferral</a></li>
       <li><a href="<%= request.getContextPath() %>/module/deleteModule">Module</a></li>
  	</ul> 
  	</div>
  	<div data-role="collapsible">
     <h1 data-icon="search">Display Single</h1>
     <ul data-role="listview" data-inset="true">
-      <li><a href="<%= request.getContextPath() %>/lecturer/listall">Lecturer</a></li>
+      <li><a href="<%= request.getContextPath() %>/lecturer/displayLecturer">Lecturer</a></li>
       <li><a href="<%= request.getContextPath() %>/student/displayStudent">Student</a></li>
-      <li><a href="#">Deferral</a></li>
+      <li><a href="<%= request.getContextPath() %>/deferral/displayDeferral">Deferral</a></li>
       <li><a href="<%= request.getContextPath() %>/module/displayModule">Module</a></li>
  	</ul>     
   </div>
@@ -94,9 +94,9 @@ tr:nth-child(even) {
   <div data-role="collapsible">
     <h1 data-icon="search">List All</h1>
     <ul data-role="listview" data-inset="true">
-      <li><a href="#">Lecturer</a></li>
+      <li><a href="<%= request.getContextPath() %>/lecturer/displayLecturers">Lecturer</a></li>
       <li><a href="<%= request.getContextPath() %>/student/displayStudents">Student</a></li>
-      <li><a href="#">Deferral</a></li>
+      <li><a href="<%= request.getContextPath() %>/deferral/displayDeferrals">Deferral</a></li>
       <li><a href="<%= request.getContextPath() %>/module/displayModules">Module</a></li>
  	</ul>     
   </div>
@@ -104,9 +104,9 @@ tr:nth-child(even) {
   <div data-role="collapsible">
     <h1 data-icon="star">Modify</h1>
     <ul data-role="listview" data-inset="true">
-      <li><a href="#">Lecturer</a></li>
+      <li><a href="<%= request.getContextPath() %>/lecturer/modifyLecturer">Lecturer</a></li>
       <li><a href="<%= request.getContextPath() %>/student/modifyStudent">Student</a></li>
-      <li><a href="#">Deferral</a></li>
+      <li><a href="<%= request.getContextPath() %>/deferral/modifyDeferral">Deferral</a></li>
       <li><a href="<%= request.getContextPath() %>/module/modifyModule">Module</a></li>
 	</ul>     
   </div>
