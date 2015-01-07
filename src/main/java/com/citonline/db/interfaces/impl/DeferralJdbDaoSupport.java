@@ -24,6 +24,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import com.citonline.db.interfaces.DeferralDAO;
 import com.citonline.domain.Deferral;
 import com.citonline.domain.Module;
+import com.citonline.interfaces.impl.ModuleImpl;
 import com.citonline.interfaces.impl.StudentImpl;
 
 /**
@@ -96,7 +97,7 @@ public class DeferralJdbDaoSupport extends JdbcDaoSupport implements
 	@Override
 	@Transactional
 	public void addDeferredModules(final int id_deferral,
-			final ArrayList<Module> deferred) {
+			final ArrayList<ModuleImpl> deferred) {
 		String SQL = "insert into deferred_modules (id_deferral, id_module) values (?, ?)";
 		getJdbcTemplate().batchUpdate(SQL, new BatchPreparedStatementSetter() {
 
@@ -117,10 +118,10 @@ public class DeferralJdbDaoSupport extends JdbcDaoSupport implements
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public ArrayList<Module> getDeferredModules(int deferral) {
+	public ArrayList<ModuleImpl> getDeferredModules(int deferral) {
 		String SQL = "select * from module where id_module in(Select id_module from deferred_modules where id_deferral= ?)";
 		@SuppressWarnings("unchecked")
-		ArrayList<Module> modules = (ArrayList<Module>) getJdbcTemplate()
+		ArrayList<ModuleImpl> modules = (ArrayList<ModuleImpl>) getJdbcTemplate()
 				.query(SQL, new Object[] { deferral }, new ModuleMapper());
 		return modules;
 
@@ -128,7 +129,7 @@ public class DeferralJdbDaoSupport extends JdbcDaoSupport implements
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public ArrayList<Module> getDeferredModulesName(String firstName,
+	public ArrayList<ModuleImpl> getDeferredModulesName(String firstName,
 			String lastName) {
 		String SQL = "select module.id_module, code, crn, name, semester from module"
 				+ " left join deferred_modules "
@@ -139,7 +140,7 @@ public class DeferralJdbDaoSupport extends JdbcDaoSupport implements
 				+ " on deferral.id_student=student.id_student"
 				+ " and student.firstName = ?" + " and student.lastName=?";
 		@SuppressWarnings("unchecked")
-		ArrayList<Module> modules = (ArrayList<Module>) getJdbcTemplate()
+		ArrayList<ModuleImpl> modules = (ArrayList<ModuleImpl>) getJdbcTemplate()
 				.query(SQL, new Object[] { firstName, lastName },
 						new ModuleMapper());
 		return modules;
@@ -183,7 +184,7 @@ public class DeferralJdbDaoSupport extends JdbcDaoSupport implements
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
-	public ArrayList<Module> getDeferredModuleStudentNumber(String studentNumber) {
+	public ArrayList<ModuleImpl> getDeferredModuleStudentNumber(String studentNumber) {
 		String SQL = "select module.id_module, code, crn, name, semester from module"
 				+ " left join deferred_modules "
 				+ " on  module.id_module=deferred_modules.id_module "
@@ -193,7 +194,7 @@ public class DeferralJdbDaoSupport extends JdbcDaoSupport implements
 				+ " on deferral.id_student=student.id_student"
 				+ " and student.studentNumber=?";
 		@SuppressWarnings("unchecked")
-		ArrayList<Module> modules = (ArrayList<Module>) getJdbcTemplate()
+		ArrayList<ModuleImpl> modules = (ArrayList<ModuleImpl>) getJdbcTemplate()
 				.query(SQL, new Object[] { studentNumber }, new ModuleMapper());
 		return modules;
 	}
