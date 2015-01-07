@@ -21,7 +21,7 @@
  </div>
  
 <div class="ui-field-contain">
-<form:label path="file">File Upload</form:label>
+<form:label path="file">File Upload (PDFs Only)</form:label>
 <form:input path="file" type="file"/> 
 </div>  
  

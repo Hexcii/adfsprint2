@@ -12,6 +12,7 @@ public class Deferralwrapper {
 	int id_deferral_status;
 	String firstName, lastName;
 	String studentNumber;
+	int courseCode;
 	
 	public Deferralwrapper(){}
 	
@@ -39,7 +40,7 @@ public class Deferralwrapper {
 	public void setDeferredModules(ArrayList<Module> deferredModules) {
 		this.deferredModules = deferredModules;
 	}
-	public boolean isProgramDeferred() {
+	public boolean getProgramDeferred() {
 		return programDeferred;
 	}
 	public void setProgramDeferred(boolean programDeferred) {

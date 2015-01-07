@@ -2,7 +2,11 @@ package com.citonline.controllers;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,6 +14,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -160,19 +167,28 @@ public class DeferralController
 	
 	@RequestMapping(value = "/addNewDeferral", method = RequestMethod.GET) 
 	public ModelAndView addNewDeferral() {                                
-		return new ModelAndView("addNewDeferral", "deferral", new Deferral());
+		return new ModelAndView("addNewDeferral", "deferralwrapper", new Deferralwrapper());
 	} 
 	
 	@RequestMapping(value = "/addNewDeferral", method = RequestMethod.POST)
-	public String addNewDeferral(@ModelAttribute("deferral") Deferral deferral, ModelMap model) {
+	public String addNewDeferral(@ModelAttribute("deferral") Deferralwrapper deferral, ModelMap model) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		ArrayList<ModuleImpl> modules = new ArrayList<ModuleImpl>();
 		Date date = new Date();
-		String today = dateFormat.format(date).toString();	
-		int id = 0;
-		
+		String today = dateFormat.format(date).toString();
+		StudentImpl student = new StudentImpl();;
 		try {
-			id =deferralDAO.createDeferralGetId(today, deferral.getId_program(), deferral.getId_student(), deferral.getProgramDeferred(), 1);
+				student = studentdao.getStudent(deferral.getStudentNumber());
+				System.out.println(student.getId());
+		}
+		catch (Exception e) {
+			model.addAttribute("message", "student does not exist");
+			return "errorDeferral";
+		}
+		int id = 0;
+		System.out.println(student.getId());
+		try {
+			id =deferralDAO.createDeferralGetId(today, deferral.getId_program(), student.getId(), deferral.getProgramDeferred(), 1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -269,7 +285,7 @@ public class DeferralController
 		    			int id = deferralDAO.createDeferralGetId(today, deferral.getId_program(), deferral.getId_student(), deferral.getProgramDeferred(), 1);
 		            	
 		                byte[] bytes = file.getBytes(); 
-		                File dir = new File(servletContext.getRealPath("/")+"/resources/images");
+		                File dir = new File(servletContext.getRealPath("/")+"/resources/filesUploaded");
 		                System.out.println("1:"+dir.getAbsolutePath());
 		                
 		                if (!dir.exists())
@@ -316,11 +332,7 @@ public class DeferralController
 	
 	private void validateImage(MultipartFile file){
 		System.out.println("FileType:"+file.getContentType());
-		if(!file.getContentType().equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document") &&
-				!file.getContentType().equals("application/msword") &&
-				!file.getContentType().equals("application/pdf") &&
-				!file.getContentType().equals("image/jpeg") &&
-				!file.getContentType().equals("image/gif")){
+		if(!file.getContentType().equals("application/pdf")){
 			throw new FileTypeException("FileTypeError");
 		}
 	}
@@ -366,8 +378,55 @@ public class DeferralController
 		}
 		model.addAttribute("modules", activemodules);
 		
-		model.addAttribute("message", "added");
+		model.addAttribute("message", "Deferred");
 		return "deferModule";
 		
 	}
+	
+	@RequestMapping(value = "/downloadFile/{id}", method = RequestMethod.GET) 
+	public @ResponseBody void downloadFile(@PathVariable int id, HttpServletRequest request,
+			HttpServletResponse response) {   
+		try {
+	 
+	   File fullPath = new File(servletContext.getRealPath("/")+"/resources/filesUploaded");
+       System.out.println(fullPath.getAbsolutePath());
+       
+       File downloadFile = new File(fullPath+"/"+id+".pdf");
+       FileInputStream inputStream = new FileInputStream(downloadFile);		     
+      
+       // get MIME type of the file
+       String mimeType = "application/msword";         
+
+       // set content attributes for the response
+       response.setContentType(mimeType);
+       response.setContentLength((int) downloadFile.length());
+
+       // set headers for the response
+       String headerKey = "Content-Disposition";
+       String headerValue = String.format("attachment; filename=\"%s\"",
+               downloadFile.getName());
+       response.setHeader(headerKey, headerValue);
+
+       // get output stream of the response
+       OutputStream outStream = response.getOutputStream();
+
+       byte[] buffer = new byte[1024];
+       int bytesRead = -1;
+
+       // write bytes read from the input stream into the output stream
+       while ((bytesRead = inputStream.read(buffer)) != -1) {
+           outStream.write(buffer, 0, bytesRead);
+       }		   
+
+       inputStream.close();
+       outStream.close();
+       
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	} 
 }

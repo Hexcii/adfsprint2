@@ -19,3 +19,4 @@
       <td>${module.semester}</td>          
     </tr>
   </tbody>               
+</table>
