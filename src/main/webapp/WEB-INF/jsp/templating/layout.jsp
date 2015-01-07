@@ -68,6 +68,7 @@ tr:nth-child(even) {
 	    <ul data-role="listview" data-inset="true">
 	      <li><a href="<%= request.getContextPath() %>/deferral/addNewDeferral">Add Deferral</a></li>
 	      <li><a href="<%= request.getContextPath() %>/deferral/addDeferralAndFile">Add Deferral & File</a></li>
+	      <li><a href="<%= request.getContextPath() %>/deferral/deferralAll">Display Deferrals</a></li>
 	      <li><a href="<%= request.getContextPath() %>/module/displayModules">List Modules</a></li>
 	      <li><a href="<%= request.getContextPath() %>/student/modifyStudent">Modify Students</a></li>
 	 	</ul>
@@ -80,7 +81,7 @@ tr:nth-child(even) {
       <li><a href="<%= request.getContextPath() %>/lecturer/addNew">Lecturer</a></li>
       <li><a href="<%= request.getContextPath() %>/student/addNewStudent">Student</a></li>
       <li><a href="<%= request.getContextPath() %>/deferral/addNewDeferral">Deferral</a></li>
-      <li><a href="<%= request.getContextPath() %>/deferral/addDeferralAndFile">Deferral with File</a></li>
+      <li><a href="<%= request.getContextPath() %>/deferral/addDeferralAndFile">Deferral & File</a></li>
       <li><a href="<%= request.getContextPath() %>/module/addModule">Module</a></li>
  	</ul>
   </div>
