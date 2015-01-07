@@ -93,5 +93,18 @@ import com.citonline.interfaces.impl.StudentImpl;
 		int rows=getJdbcTemplate().queryForObject(SQL, Integer.class);
 		return rows;
 	}
+	/**
+	 * added functionality 
+	 * peter halligan
+	 * 07/01/15
+	 */
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
+	public List<ModuleImpl> listModulesByProgramId(int progId) {
+		String SQL = "select * from module where id_module IN(select id_module from program_has_semseters where id_program =?)";
+		@SuppressWarnings("unchecked")
+		List<ModuleImpl> modules = getJdbcTemplate().query(SQL, 
+				new Object[]{progId},new ModuleMapper());
+		return modules;
+	}
 
 }

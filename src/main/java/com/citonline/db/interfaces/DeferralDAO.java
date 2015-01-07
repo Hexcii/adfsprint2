@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.citonline.domain.Deferral;
 import com.citonline.domain.Module;
+import com.citonline.interfaces.impl.ModuleImpl;
 /**
  * 
  * @author peter halligan
@@ -53,26 +54,26 @@ public interface DeferralDAO
 	 * @param id_deferral
 	 * @param defered
 	 */
-	void addDeferredModules(int id_deferral, final ArrayList<Module> defered);
+	void addDeferredModules(int id_deferral, final ArrayList<ModuleImpl> defered);
 	/**
 	 * gets deferred modules based on deferral number
 	 * @param deferral
 	 * @return arraylist Deferred modules
 	 */
-	public ArrayList<Module> getDeferredModules(int deferral);
+	public ArrayList<ModuleImpl> getDeferredModules(int deferral);
 	/**
 	 * gets deferred modules based on student name
 	 * @param firstName
 	 * @param lastName
 	 * @return arraylist<modules> defered modules
 	 */
-	public ArrayList<Module> getDeferredModulesName(String firstName, String lastName);
+	public ArrayList<ModuleImpl> getDeferredModulesName(String firstName, String lastName);
 	/**
 	 * get deferred modules based on student number
 	 * @param studentNumber
 	 * @return <modules> defered modules
 	 */
-	public ArrayList<Module> getDeferredModuleStudentNumber(String studentNumber);
+	public ArrayList<ModuleImpl> getDeferredModuleStudentNumber(String studentNumber);
 	/**
 	 * get deferrals based on student number
 	 * @param studentNumber
@@ -127,5 +128,10 @@ public interface DeferralDAO
 	public ArrayList<Deferral>getAllDefferals();
 	
 	public int createDeferralGetId(String date, int id_program, int id_student, boolean proframDeferred, int status);
-
+	/**
+	 * 
+	 * @param id_deferral
+	 * @param deferedmoduleid
+	 */
+	void addDeferredModuleByid(int id_deferral, int defered);
 }
