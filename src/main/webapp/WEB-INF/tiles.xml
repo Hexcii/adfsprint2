@@ -162,4 +162,8 @@
         <put-attribute name="title" value="Module Deferral"></put-attribute>  
         <put-attribute name="body" value="/WEB-INF/jsp/deferral/deferModule.jsp"></put-attribute>  
 	</definition>
+	<definition extends="base.definition" name="sendEmail">  
+        <put-attribute name="title" value="Email"></put-attribute>  
+        <put-attribute name="body" value="/WEB-INF/jsp/email.jsp"></put-attribute>  
+	</definition>
 </tiles-definitions>
