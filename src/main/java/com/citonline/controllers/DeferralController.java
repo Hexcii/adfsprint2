@@ -343,4 +343,31 @@ public class DeferralController
 		model.addAttribute("message", "updated");
 		return "displayDeferral";	
 		}
+	@RequestMapping(value = "/deferModule/modid/{modid}/defid/{deferralid}")
+	public String deferModule(@PathVariable("modid") int modid,@PathVariable("deferralid") int deferralid, ModelMap model) 
+	{
+		deferralDAO.addDeferredModuleByid(deferralid, modid);
+		Deferral d = deferralDAO.getDeferralById(deferralid);
+		ArrayList<ModuleImpl> deferredmodules  = deferralDAO.getDeferredModules(deferralid);
+		List<ModuleImpl> modules = moduledao.listModulesByProgramId(d.getId_program());
+		
+		List<ModuleImpl> activemodules= new ArrayList<ModuleImpl>();
+		for(ModuleImpl m: modules)
+		{
+			activemodules.add(m);
+			for(ModuleImpl def: deferredmodules)
+			{
+				if(m.getId() == def.getId())
+				{
+					activemodules.remove(m);
+				}
+			}
+			//System.out.println("\n" +m.getName() + "\n");
+		}
+		model.addAttribute("modules", activemodules);
+		
+		model.addAttribute("message", "added");
+		return "deferModule";
+		
+	}
 }

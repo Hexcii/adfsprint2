@@ -13,7 +13,7 @@
 	</tr>
 </thead>
 <tbody>
-	<c:forEach var="module" items="${modules}">
+	<c:forEach var="module" items="${modules}" varStatus="status">
    		<tr>
    		  <td>${module.id}</td>
 	      <td>${module.code}</td>
@@ -21,7 +21,7 @@
 	      <td>${module.name}</td> 
 	      <td>${module.semester}</td> 
 	      <td><a href="<%= request.getContextPath() %>/deferral/deferModule/modid/${status.current.id}/defid/${deferralid}"
-						class="ui-btn">modify</a></td>       
+						class="ui-btn">defer</a></td>       
 		</tr>
 	</c:forEach>
 </tbody>
