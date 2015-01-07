@@ -39,5 +39,12 @@ public interface ModuleDAO {
 	void createModule(String code, String crn, String name, int semester);
 	
 	List<ModuleImpl> listModules();
+
+	/**
+	 * added functionality
+	 * peter halligan
+	 * @param id_program
+	 */
+	public List<ModuleImpl> listModulesByProgramId(int id_program);
 	
 }

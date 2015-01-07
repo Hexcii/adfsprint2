@@ -29,8 +29,10 @@ import com.citonline.db.interfaces.ModuleDAO;
 import com.citonline.db.interfaces.StudentDAO;
 import com.citonline.domain.Deferral;
 import com.citonline.domain.Deferralwrapper;
+import com.citonline.domain.Module;
 import com.citonline.exceptions.FileTypeException;
 import com.citonline.exceptions.ImageUploadException;
+import com.citonline.interfaces.impl.ModuleImpl;
 import com.citonline.interfaces.impl.StudentImpl;
 /**
  * 
@@ -163,19 +165,32 @@ public class DeferralController
 	
 	@RequestMapping(value = "/addNewDeferral", method = RequestMethod.POST)
 	public String addNewDeferral(@ModelAttribute("deferral") Deferral deferral, ModelMap model) {
-		 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		   Date date = new Date();
-		   String today = dateFormat.format(date).toString();	
-		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		ArrayList<ModuleImpl> modules = new ArrayList<ModuleImpl>();
+		Date date = new Date();
+		String today = dateFormat.format(date).toString();	
+		int id = 0;
 		
 		try {
-			deferralDAO.createDeferral(today, deferral.getId_program(), deferral.getId_student(), deferral.getProgramDeferred(), 1);
+			id =deferralDAO.createDeferralGetId(today, deferral.getId_program(), deferral.getId_student(), deferral.getProgramDeferred(), 1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		deferral.setDeferral_date(today);
-		model.addAttribute("deferral", deferral);
-		return "displayDeferral";
+		modules = (ArrayList<ModuleImpl>) moduledao.listModulesByProgramId(deferral.getId_program());
+		if(deferral.getProgramDeferred() == true && id != 0)
+		{
+			deferralDAO.addDeferredModules(id, modules);
+			for(ModuleImpl m:modules)
+			{
+				System.out.println("name : " + m.getName());
+			}
+			deferral.setDeferral_date(today);
+			model.addAttribute("deferral", deferral);
+			return "displayDeferral";
+		}
+		model.addAttribute("modules", modules);
+		model.addAttribute("deferralid", id);
+		return "deferModule";
 	}
 	
 	@RequestMapping(value = "/modifyDeferral", method = RequestMethod.GET) 
@@ -225,7 +240,7 @@ public class DeferralController
 		System.out.println("date: " +deferralwrapper.getDeferral_date());
 		
 		model.addAttribute("message", "Deferral with id "+ id +" can now be modified");
-		model.addAttribute("deferral", deferralwrapper);
+		model.addAttribute("deferralwrapper", deferralwrapper);
 		return "modifyDeferralForm";	
 		}
 	@RequestMapping(value = "/addDeferralAndFile", method = RequestMethod.GET) 
