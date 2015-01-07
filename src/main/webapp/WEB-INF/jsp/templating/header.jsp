@@ -13,9 +13,9 @@
 
 	<div data-role="navbar">
     	<ul>
-	        <li><a href="#">Lecturer</a></li>
-	        <li><a href="#">Student</a></li>
-	        <li><a href="#">Deferral</a></li>
+	        <li><a href="/adfsprint2/lecturer/listall">Lecturer</a></li>
+	        <li><a href="/adfsprint2/student/displayStudents">Student</a></li>
+	        <li><a href="/adfsprint2/deferral/deferralAll">Deferral</a></li>
     	</ul>
     </div>
 

@@ -89,22 +89,6 @@ public class Lecturer extends Person {
 	public void setRoomNumber(String roomNumber) {
 		this.roomNumber = roomNumber;
 	}
-	
-	/**
-	 * 
-	 * @return the taughtModules
-	 */
-	public ArrayList<Module> getTaughtModules() {
-		return taughtModules;
-	}
-
-	/**
-	 * 
-	 * @param taughtModules the taughtModules to set
-	 */
-	public void setTaughtModules(ArrayList<Module> taughtModules) {
-		this.taughtModules = taughtModules;
-	}
 
 	/**
 	 * @return the idManagedProgram
@@ -118,6 +102,20 @@ public class Lecturer extends Person {
 	 */
 	public void setIdManagedProgram(int idManagedProgram) {
 		this.idManagedProgram = idManagedProgram;
+	}
+
+	/**
+	 * @return the taughtModules
+	 */
+	public ArrayList<Module> getTaughtModules() {
+		return taughtModules;
+	}
+
+	/**
+	 * @param taughtModules the taughtModules to set
+	 */
+	public void setTaughtModules(ArrayList<Module> taughtModules) {
+		this.taughtModules = taughtModules;
 	}
 
 	

@@ -8,15 +8,23 @@ package com.citonline.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.citonline.db.interfaces.LecturerDAO;
+import com.citonline.db.interfaces.ModuleDAO;
+import com.citonline.db.interfaces.ProgramDAO;
+import com.citonline.domain.Program;
 import com.citonline.interfaces.impl.LecturerImpl;
+import com.citonline.interfaces.impl.ModuleImpl;
 
 
 /**
@@ -29,6 +37,10 @@ public class LecturerController {
 	
 	@Autowired
 	LecturerDAO lecturerDAO;
+	@Autowired
+	ModuleDAO moduleDAO;
+	@Autowired
+	ProgramDAO programDAO;
 	
 	@RequestMapping(value={"/listall", "/listAll"}, method = RequestMethod.GET)
 	public String listAll(ModelMap model) {
@@ -59,74 +71,39 @@ public class LecturerController {
 	}
 	
 	@RequestMapping(value = "/addNew", method = RequestMethod.GET) 
-	public String addNewLecturer(ModelMap model) {    
-		model.addAttribute("lecturer", new LecturerImpl());	
+	public String addNewLecturer(ModelMap model) {
+		List<ModuleImpl> modules = moduleDAO.listModules();
+		List<Program> programs = programDAO.listPrograms();
+		model.addAttribute("modules", modules);
+		model.addAttribute("programs", programs);
+
+		model.addAttribute("lecturer", new LecturerImpl());
 		return "newLecturer";
 	} 
 
-	/*
+	
 	@RequestMapping(value = "/addNew", method = RequestMethod.POST)
 	public String displayLecturer(@ModelAttribute("lecturer") @Valid LecturerImpl lecturer,
-			@RequestParam("file") MultipartFile file,
 			BindingResult result, ModelMap model) {
 		
 		if(result.hasErrors())
-			return "newLecturer"; 
-		
-		try {
-			 if (!file.isEmpty()) {
-				 
-				 validateImage(file);
-				 
-		            try {     
-		            	model.addAttribute("firstName", lecturer.getFirstName());
-			        	model.addAttribute("lastName", lecturer.getLastName());
-			        	model.addAttribute("email", lecturer.getEmail());
-			        	model.addAttribute("phoneNumber", lecturer.getPhoneNumber());
-			        	model.addAttribute("roomNumber", lecturer.getRoomNumber());
-			        	model.addAttribute("idManagedProgram", lecturer.getIdManagedProgram());
-			        	int id= lecturerDAO.createLecturerGetID(lecturer.getFirstName(), lecturer.getLastName(), lecturer.getEmail(),
-			        			lecturer.getPhoneNumber(), lecturer.getRoomNumber(), lecturer.getIdManagedProgram());
-			        	model.addAttribute("id", Integer.toString(id));
-		            	
-		                byte[] bytes = file.getBytes(); 
-		                File dir = new File(servletContext.getRealPath("/")+"/resources/images");
-		                System.out.println(dir.getAbsolutePath());
-		                
-		                if (!dir.exists())
-		                    dir.mkdirs();		                
-		               		 
-		                // Create the file on server
-		                String fileLocation=dir.getAbsolutePath()
-		                        + File.separator + Integer.toString(id)+".jpg";;
-		                
-		                File serverFile = new File(fileLocation);
-		                
-		                BufferedOutputStream stream = new BufferedOutputStream(
-		                        new FileOutputStream(serverFile));
-		                
-		                stream.write(bytes);
-		                stream.close();		  
-		    			
-		            } catch (Exception e) {
-		            	model.addAttribute("message", "Creation of lecturer failed, "+e.getLocalizedMessage());
-						return "displayError"; 
+			return "newLecturer";
 
-		            }
-			 }else{
-				 model.addAttribute("message", "You failed to upload " + file.getOriginalFilename() + " because the file was empty.");
-				 return "displayError"; 
-			 }
-			} catch(ImageUploadException e){
-				 model.addAttribute("message", "Creation of lecturer failed. The system only supports JPEGs.");
-				 return "displayError"; 
+        try {
+        	int id= lecturerDAO.createLecturerGetID(lecturer.getFirstName(), lecturer.getLastName(), lecturer.getEmail(),
+        			lecturer.getPhoneNumber(), lecturer.getRoomNumber(), lecturer.getIdManagedProgram());
+        	model.addAttribute("id", Integer.toString(id));
 			
-			}		
+        } catch (Exception e) {
+        	model.addAttribute("message", "Creation of lecturer failed, "+e.getLocalizedMessage());
+			return "displayError"; 
+
+        }
 		
 		return "displayLecturer";
 
 	}
-	*/
+	
 	
 	@RequestMapping(value="/modify", method = RequestMethod.GET)
 	public String modify(ModelMap model) {
@@ -137,6 +114,10 @@ public class LecturerController {
 	
 	@RequestMapping(value ="/modify/id/{id}", method = RequestMethod.GET)
 	public String modifyLecturerByID(@PathVariable int id, ModelMap model) {
+		List<ModuleImpl> modules = moduleDAO.listModules();
+		List<Program> programs = programDAO.listPrograms();
+		model.addAttribute("modules", modules);
+		model.addAttribute("programs", programs);
 		LecturerImpl lecturerModify=lecturerDAO.getLecturer(id);
 		model.addAttribute("message", "Lecturer with id "+ id +" can now be modified");
 		model.addAttribute("lecturer", lecturerModify);
@@ -146,6 +127,10 @@ public class LecturerController {
 	@RequestMapping(value ="/modify/firstName/{firstName}/lastName/{lastName}", method = RequestMethod.GET)
 	public String modifyLecturerByFirstNameLastName(@PathVariable String firstName, @PathVariable String lastName,
 			ModelMap model) {
+		List<ModuleImpl> modules = moduleDAO.listModules();
+		List<Program> programs = programDAO.listPrograms();
+		model.addAttribute("modules", modules);
+		model.addAttribute("programs", programs);
 		LecturerImpl lecturerModify=lecturerDAO.getLecturer(firstName, lastName);
 		model.addAttribute("message", "Lecturer with name "+ firstName + " " + lastName +" can now be modified");
 		model.addAttribute("lecturer", lecturerModify);
@@ -220,6 +205,21 @@ public class LecturerController {
 		model.addAttribute("firstName", lecturerModify.getFirstName());
 		model.addAttribute("lastName", lecturerModify.getLastName());
 		model.addAttribute("phoneNumber", lecturerModify.getRoomNumber());
+		return "displayLecturer";
+	}
+
+	@RequestMapping(value="/modify/id/{id}/phoneNumber/{phoneNumber}/roomNumber/{roomNumber}/idManagedProgram/{idManagedProgram}/taughtModules/{taughtModules}", method = RequestMethod.GET)
+	public String modifyLecturerAll(@PathVariable Integer id, @PathVariable String phoneNumber, @PathVariable String roomNumber,
+			@PathVariable Integer idManagedProgram, @PathVariable Integer taughtModules, ModelMap model) {
+		lecturerDAO.updateLecturer(id, phoneNumber,roomNumber, idManagedProgram, taughtModules);
+		LecturerImpl lecturerModify=lecturerDAO.getLecturer(id);
+		model.addAttribute("message", "Lecturer with id "+ id +" has been modified");
+		model.addAttribute("lecturer", lecturerModify);
+//		model.addAttribute("firstName", lecturerModify.getFirstName());
+//		model.addAttribute("lastName", lecturerModify.getLastName());
+//		model.addAttribute("phoneNumber", lecturerModify.getPhoneNumber());
+//		model.addAttribute("roomNumber", lecturerModify.getRoomNumber());
+//		model.addAttribute("idManagedProgram", lecturerModify.getIdManagedProgram());
 		return "displayLecturer";
 	}
 	

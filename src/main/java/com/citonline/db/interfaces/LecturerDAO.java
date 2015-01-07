@@ -297,4 +297,14 @@ public interface LecturerDAO {
 	public int createLecturerGetID(String firstName, String lastName, String email,
 			String phoneNumber, String roomNumber, Integer idManagedProgram);
 	
+	/**
+	 * 
+	 * @param id
+	 * @param phoneNumber
+	 * @param roomNumber
+	 * @param idManagedProgram
+	 * @param taughtModule
+	 */
+	public void updateLecturer(int id, String phoneNumber, String roomNumber, Integer idManagedProgram, Integer taughtModule);
+	
 }
