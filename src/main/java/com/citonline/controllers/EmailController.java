@@ -1,13 +1,14 @@
 /**
  * @author Fabien
  *
- * @since 26 déc. 2014
+ * @since 26 dï¿½c. 2014
  */
 package com.citonline.controllers;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +23,7 @@ import com.citonline.interfaces.MailInt;
  * @author Fabien
  *
  */
+@Controller 
 public class EmailController {
 	
 	@Autowired
